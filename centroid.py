@@ -1,7 +1,8 @@
 from math import tan, pi, radians, sin, cos
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
+import scipy as sp
+from scipy import interpolate
 #from constants import rootchord, tipchord, labda, halfspan
 # function to calculate the location of the centroid of the wingbox
 rho = float(input('Density:'))
@@ -57,7 +58,14 @@ I_x_c = (h1/12)*(a1**3+3*a1*c1**2+3*(a1**2)*c1+b1**3+c1*b1**2+a1*b1**2+b1*c1**2+
 #print("I_x_c", I_x_c)
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
 A = 0.000045
-n = (h // 0.1)
+#n = (h // 0.1)
+
+
+points=[0,3,6,9,12, 15, halfspan]
+nofstringers= [15, 13, 11, 8, 6, 5, 4]
+f = sp.interpolate.interp1d(points, nofstringers,kind="previous",fill_value="extrapolate")
+n =f(y)
+
 I_s = n * A * y_c**2 + n * A * (a-y_c)**2
 
 I_x = I_x_s - I_x_c + I_s
