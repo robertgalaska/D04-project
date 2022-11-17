@@ -1,14 +1,17 @@
-from math import tan, pi, radians, sin
+from math import tan, pi, radians, sin, cos
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy
 #from constants import rootchord, tipchord, labda, halfspan
 # function to calculate the location of the centroid of the wingbox
 rho = float(input('Density:'))
 V = 250
+alpha = 10
 rootchord = 6.12 #as % of chord
 tipchord = 1.22 #as % of chord
 halfspan = 18.37
 labda = 0.2
+
 # The spanwise chord
 def chord(rootchord, labda, halfspan, y):
     c = rootchord - rootchord*(1-labda)*(y/halfspan)
@@ -87,8 +90,10 @@ plt.ylabel('Torsional stiffness')
 
 plt.show()
 
-wingdata = np.genfromtxt('wingdata.txt')
+#wingdata = np.genfromtxt('wingdata.txt')
 
-l = wingdata[101:, 3]*wingdata[101:, 1] * 0.5 * rho * V**2
-print(l)
-V =
+#l = wingdata[101:, 3]*wingdata[101:, 1] * 0.5 * rho * V**2
+#d = wingdata[101:, 5]*wingdata[101:, 1] * 0.5 * rho * V**2
+#n = cos(radians(alpha))* l + sin(radians(alpha))*d
+#ncont = scipy.interp1d(wingdata[101:, 0], n)
+#print(ncont)
