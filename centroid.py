@@ -57,7 +57,7 @@ I_x_c = (h1/12)*(a1**3+3*a1*c1**2+3*(a1**2)*c1+b1**3+c1*b1**2+a1*b1**2+b1*c1**2+
 #print("I_x_c", I_x_c)
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
 A = 0.000045
-n = 6
+n = (h // 0.1)
 I_s = n * A * y_c**2 + n * A * (a-y_c)**2
 
 I_x = I_x_s - I_x_c + I_s
