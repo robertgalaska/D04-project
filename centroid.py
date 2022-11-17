@@ -61,12 +61,17 @@ J = 4*area**2/(perimeter/localt)
 #print("perimeter", perimeter)
 #print("J", J)
 
-
+plt.subplot(131)
 plt.plot(y, I_x)
-plt.plot(y, J)
 plt.title('Moment of inertia')
 plt.xlabel('Span position')
-plt.legend(('I' , 'J'))
+plt.ylabel('Moment of inertia')
+
+plt.subplot(133)
+plt.plot(y, J)
+plt.title('Torsional stiffness J')
+plt.xlabel('Span position')
+plt.ylabel('Torsional stiffness')
 
 plt.show()
 
