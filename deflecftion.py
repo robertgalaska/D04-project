@@ -5,3 +5,9 @@ G=26*10**9
 I_
 
 
+#Torque deflection:
+def T_integrand(T,G,J):
+    int = T/(G*J)
+    return int
+T_int = T_integrand(T,G,J)
+

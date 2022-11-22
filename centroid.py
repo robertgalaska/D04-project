@@ -2,6 +2,7 @@ from math import tan, pi, radians, sin, cos
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sp
+from scipy import interpolate
 
 #from constants import rootchord, tipchord, labda, halfspan
 # function to calculate the location of the centroid of the wingbox
@@ -72,7 +73,7 @@ I_s = n * A * y_c**2 + n * A * (a-y_c)**2
 I_x = I_x_s - I_x_c + I_s
 #print("I_x", I_x)
 
-print(I_x[-1])
+print(I_x[1])
 
 
 
