@@ -6,8 +6,7 @@ from scipy import interpolate
 
 #from constants import rootchord, tipchord, labda, halfspan
 # function to calculate the location of the centroid of the wingbox
-rho = float(input('Density:'))
-V = 250
+
 alpha = 10
 rootchord = 6.12 #as % of chord
 tipchord = 1.22 #as % of chord
@@ -25,7 +24,7 @@ theta2 = 88.66
 #localchord= chord(rootchord, labda, halfspan, 5)
 #localchord =1
 
-y = np.arange(0, halfspan, 0.0018)
+y = np.linspace(0, halfspan, 100)
 
 localchord = chord(rootchord, labda, halfspan, y)
 localt = ttoc * localchord
