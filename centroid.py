@@ -36,13 +36,14 @@ c = h/(tan(radians(theta1)))
 x_c = h/3*((2*a+b)/(a+b))
 #print("x_c" ,x_c)
 # y location of the centroid of a trapezoid
-y_c = (2*a*c+a*2+c*b+a*b+b**2)/(3*(a+b))
+y_c = (2*a*c+a**2+c*b+a*b+b**2)/(3*(a+b))
 #print("y_c", y_c)
 # assuming that the thickness of the wingbox is constant along the cross-section the centroid is in the same
 # location as that of a solid trapezoid
-
+print(x_c[0])
+print(y_c[0])
 #moment of inertia along the x_axis of a solid trapezoid
-I_x_s = (h/12)*(a**3+3*a*c**2+3*a**2*c+b**3+c*b**2+a*b**2+b*c**2+2*a*b*c+b*a**2)
+I_x_s = (h/12)*(a**3+3*a*c**2+3*(a**2)*c+b**3+c*b**2+a*b**2+b*c**2+2*a*b*c+b*a**2)
 #print("I_x_s", I_x_s)
 #Moment of inertia of the cut-out trapezoid:
 a1 = a - (2*localt)
@@ -68,10 +69,10 @@ n =f(y)
 
 I_s = n * A * y_c**2 + n * A * (a-y_c)**2
 
-I_x = I_x_s - I_x_c + I_s
+I_x = I_x_s - I_x_c
 #print("I_x", I_x)
 
-print(I_x[1])
+print(I_x[0])
 
 
 
