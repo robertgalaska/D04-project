@@ -3,7 +3,7 @@ M_x = []
 E = 68.9*10**9
 G=26*10**9
 from centroid import I_x
-from
+
 
 #Torque deflection:
 def T_integrand(T,G,J):
@@ -26,5 +26,5 @@ def integrand_bending ():
     int = M_x/(E*I_x)
     return int
 #print(integrand_bending()[0])
-sp.integrate.trapezoid(integrand_bending(), , 0.0018)
+#sp.integrate.trapezoid(integrand_bending(), , 0.0018)
 
