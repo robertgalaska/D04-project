@@ -24,7 +24,14 @@ for i in range(0,1000):
     T_int = T_integrand(T[:i],G,J[:i])
     Theta[i] = sp.integrate.trapezoid(y[:i],T_int)
 
-print(len(Theta))
+
+plt.plot(y, Theta)
+#plt.axis([0, 18.7, 0, 0.018])
+plt.title('Twist distribution')
+plt.xlabel('Span position')
+plt.ylabel('Angle of twist')
+
+plt.show()
 
 
 
