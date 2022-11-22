@@ -1,4 +1,4 @@
-# in order to calculate the deflection intergation has to be performed
+# in order to calculate the deflection integration has to be performed
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -36,7 +36,7 @@ plt.show()
 
 
 from centroid import halfspan
-# in order to integrate this we define a new function for scipy to intergrate
+# in order to integrate this we define a new function for scipy to integrate
 from inertial_loads import z2tab
 M_engine = x[1]
 M_x = M_engine
