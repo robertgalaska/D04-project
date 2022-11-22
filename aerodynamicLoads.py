@@ -1,71 +1,76 @@
 import numpy as np
-import scipy as sp
-from scipy import interpolate
+import matplotlib.pyplot as plt
+#import scipy as sp
+#from scipy import interpolate
 
-f = open("MainWing_a=0.00_v=10.00ms.txt", "r")
-lines = f.readlines()
+f = open("MainWing_a=0.00_v=10.00ms_1000steps.txt", "r")
+lines0 = f.readlines()
 f.close()
-"""
-listedvalues= np.zeros((1,13))
-array1= np.array[]
-#print(listedvalues)
-#for line in lines[40:59]:
- #   values = line.split("   ")
-    #listedvalues.append[values]
-    #print(listedvalues)
-    #print(values)
-for line in lines[40:59]:
-    row=np.array(line)
-    array1.append(row)
-print(array1)
-"""
+g = open("MainWing_a=10.00_v=10.00ms_1000steps.txt", "r")
+lines10 = g.readlines()
+g.close()
+
+rho=1.225
+v=10
+q = 0.5*rho*v**2
+
 zerolist = np.array((0,0,0,0,0,0,0,0,0,0,0,0,0))
 i = 0
-for line in lines[40:59]:
+for line0 in lines0[122:221]:
 
-    values = line.split("   ")
+    values0 = line0.split("   ")
+
+    valuelist0 = np.array(values0)
+
+    if i == 0:
+        array_values0 = np.vstack((zerolist, valuelist0))
+    else:
+        array_values0 = np.vstack((array_values0, valuelist0))
+    i+=1
+
+print(array_values0)
+
+i = 0
+for line10 in lines10[122:221]:
+
+    values = line10.split("   ")
 
     valuelist = np.array(values)
 
     if i == 0:
-        array_values = np.vstack((zerolist, valuelist))
+        array_values10 = np.vstack((zerolist, valuelist))
     else:
-        array_values = np.vstack((array_values, valuelist))
+        array_values10 = np.vstack((array_values10, valuelist))
     i+=1
+print(array_values10)
 
-print(array_values)
+locations0=[]
+liftcoefficients0=[]
+chords0=[]
+for i in range(100):
+    locations0.append(array_values0[i,1])
+    liftcoefficients0.append(array_values0[i,4])
+    chords0.append(array_values0[i,2])
 
-locations=[]
-liftcoefficients=[]
-chords=[]
-for i in range(20):
-    locations.append(array_values[i,1])
-    liftcoefficients.append(array_values[i,4])
-    chords.append(array_values[i,2])
-print(locations, liftcoefficients, chords)
+lift0 = []
+for i in range(len(locations0)):
+    lift0.append(q*float(liftcoefficients0[i])*float(chords0[i]))
+print(lift0)
 
+locations10=[]
+liftcoefficients10=[]
+chords10=[]
+for i in range(100):
+    locations10.append(array_values10[i,1])
+    liftcoefficients10.append(array_values10[i,4])
+    chords10.append(array_values10[i,2])
+    
+lift10 = []
+for i in range(len(locations10)):
+    lift10.append(q*float(liftcoefficients10[i])*float(chords10[i]))
+print(lift10)
 
+plt.plot(locations0,lift0)
+plt.plot(locations10,lift10)
+plt.show()
 
-
-
-"""
-a0 = np.genfromtxt('MainWing_a=0.00_v=10.00ms.txt', skip_header= 20, skip_footer= 11)
-
-a0 = open('MainWing_a=0.00_v=10.00ms.txt', 'r')
-a0res = a0.read()
-print(a0res)
-
-a10 = open('MainWing_a=10.00_v=10.00ms.txt', 'r')
-a10res = a10.read()
-print(a10res)
-
-
-x = [0,1,2.5,3.8,5.5,7.5,10,14,20]
-y = [1.5,1.4,1.2,1.1,1.4,1.6,1.8,2.2,3.2]
-f = sp.interpolate.interp1d(x,y,kind='linear',fill_value="extrapolate")
-g = sp.interpolate.interp1d(x,y,kind='cubic',fill_value="extrapolate")
-print(f(2.5), g(2.5)) ## 1.2 as expected
-print(f(6.5), g(6.5)) ## 1.5 for f, 1.529 for g
-print(f(22), g(22)) ## 3.533 for f, 3.713 for g
-'MainWing_a=0.00_v=10.00ms.txt'
-"""
