@@ -2,7 +2,7 @@ from math import tan, pi, radians, sin, cos
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sp
-from scipy import interpolate
+
 #from constants import rootchord, tipchord, labda, halfspan
 # function to calculate the location of the centroid of the wingbox
 rho = float(input('Density:'))
@@ -43,7 +43,7 @@ y_c = (2*a*c+a**2+c*b+a*b+b**2)/(3*(a+b))
 print(x_c[0])
 print(y_c[0])
 #moment of inertia along the x_axis of a solid trapezoid
-I_x_s = (h/12)*(a**3+3*a*c**2+3*(a**2)*c+b**3+c*b**2+a*b**2+b*c**2+2*a*b*c+b*a**2)
+I_x_s = (h/12)*(a**3+3*a*c**2+3*c*(a**2)+b**3+c*b**2+a*b**2+b*c**2+2*a*b*c+b*a**2)
 #print("I_x_s", I_x_s)
 #Moment of inertia of the cut-out trapezoid:
 a1 = a - (2*localt)
@@ -55,7 +55,7 @@ c1 = h1/(tan(radians(theta1)))
 #print("b1", b1)
 #print("h1", h1)
 #print("c1", c1)
-I_x_c = (h1/12)*(a1**3+3*a1*c1**2+3*(a1**2)*c1+b1**3+c1*b1**2+a1*b1**2+b1*c1**2+2*a1*b1*c1+b1*a1**2)
+I_x_c = (h1/12)*(a1**3+3*a1*c1**2+3*c1*(a1**2)+b1**3+c1*b1**2+a1*b1**2+b1*c1**2+2*a1*b1*c1+b1*a1**2)
 #print("I_x_c", I_x_c)
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
 A = 0.000045
@@ -72,7 +72,7 @@ I_s = n * A * y_c**2 + n * A * (a-y_c)**2
 I_x = I_x_s - I_x_c + I_s
 #print("I_x", I_x)
 
-print(I_x[0])
+print(I_x[-1])
 
 
 
