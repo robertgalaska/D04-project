@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-M_x = []
+
 E= 68.9*10**9
 G=26*10**9
 from centroid import I_x, y, J
@@ -37,10 +37,18 @@ plt.show()
 
 from centroid import halfspan
 # in order to integrate this we define a new function for scipy to intergrate
-
-def integrand_bending ():
-    int = M_x/(E*I_x)
+from inertial_loads import z2tab
+M_engine = x[1]
+M_x = M_engine
+def integrand_bending (M_x,E,I_x):
+    int = -M_x/(E*I_x)
     return int
-#print(integrand_bending()[0])
-#sp.integrate.trapezoid(integrand_bending(), , 0.0018)
 
+
+slope = np.ones(1000)
+for i in range(0,1000):
+    M_int = integrand_bending(M_x[:i],E,I_x[:i])
+    slope[i] = sp.integrate.trapezoid(y[:i],M_int)
+
+print(len(slope))
+print(slope)
