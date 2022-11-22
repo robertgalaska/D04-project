@@ -15,3 +15,4 @@ T = x[1]
 
 print(T)
 #T_int = T_integrand(T,G,J)
+Theta = sp.integrate.trapezoid.(y,T,0.0018,)
