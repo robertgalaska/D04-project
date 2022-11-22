@@ -3,6 +3,9 @@ M_x = []
 E = 68.9*10**9
 G=26*10**9
 from centroid import I_x
+from
+import scipy as sp
+from scipy import integrate
 
 
 #Torque deflection:
@@ -15,7 +18,7 @@ T = x[1]
 
 print(T)
 #T_int = T_integrand(T,G,J)
-Theta = sp.integrate.trapezoid.(y,T,0.0018,)
+Theta = sp.integrate.trapezoid(y,T,0.0018,)
 
 
 
