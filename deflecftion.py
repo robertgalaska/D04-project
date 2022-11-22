@@ -12,10 +12,9 @@ def T_integrand(T,G,J):
     return int
 
 from engine import x
-T = x[1][500:]
+T = x[1]
 
-print(len(T))
-print(len(y))
+print(T)
 #T_int = T_integrand(T,G,J)
 #Theta = sp.integrate.trapezoid(y,T,0.0018,)
 
