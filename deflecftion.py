@@ -2,12 +2,16 @@
 M_x = []
 E = 68.9*10**9
 G=26*10**9
-I_
+#I_
 
 
 #Torque deflection:
 def T_integrand(T,G,J):
     int = T/(G*J)
     return int
-T_int = T_integrand(T,G,J)
 
+from engine import x
+T = x[1]
+
+print(T)
+#T_int = T_integrand(T,G,J)
