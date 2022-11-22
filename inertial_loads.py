@@ -13,7 +13,7 @@ span = 36.74
 #def wf(y):
     #return 0.0175 * c_r ** 2 - y ** 2 * 0.105 * c_r ** 2 / b ** 2
 #step
-n = 100
+n = 1000
 step = 0.8 * span / ( 2 * n )
 # initialize z and y
 ztab = []
