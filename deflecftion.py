@@ -50,5 +50,25 @@ for i in range(0,1000):
     M_int = integrand_bending(M_x[:i],E,I_x[:i])
     slope[i] = sp.integrate.trapezoid(y[:i],M_int)
 
-print(len(slope))
-print(slope)
+#print(len(slope))
+#print(slope)
+
+plt.plot(y,slope)
+plt.title('slope distribution')
+plt.xlabel('Span position')
+plt.ylabel('slope of the wing')
+
+plt.show()
+
+# deflection calculations
+deflection = np.ones(1000)
+for i in range(0,1000):
+    deflect_int = slope[:i]
+    deflection[i] = sp.integrate.trapezoid(y[:i],deflect_int)
+
+plt.plot(y,deflection)
+plt.title('deflection distribution')
+plt.xlabel('Span position')
+plt.ylabel('deflection of the wing')
+
+plt.show()
