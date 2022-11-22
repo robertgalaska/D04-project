@@ -13,6 +13,7 @@ g.close()
 rho=1.225
 v=10
 q = 0.5*rho*v**2
+halfspan = 18.3689
 
 def calculate_aeroloads(lines10, rho, v, q):
     zerolist = np.array((0,0,0,0,0,0,0,0,0,0,0,0,0))
@@ -54,7 +55,6 @@ def calculate_aeroloads(lines10, rho, v, q):
     moment0=[]
     for i in range(len(locations0)):
         lift0.append(q*float(liftcoefficients0[i])*float(chords0[i]))
-        moment0.append(q*float(liftcoefficients0[i])*float(chords0[i])*float(locations0[i]))
 
     locations10=[]
     liftcoefficients10=[]
@@ -65,13 +65,25 @@ def calculate_aeroloads(lines10, rho, v, q):
         chords10.append(array_values10[i,2])
 
     lift10 = []
-    moment10 = []
     for i in range(len(locations10)):
         lift10.append(q*float(liftcoefficients10[i])*float(chords10[i]))
-        moment10.append(q * float(liftcoefficients0[i]) * float(chords0[i]) * float(locations0[i]))
 
-    plt.plot(locations0,lift0)
-    plt.plot(locations10,lift10)
+    moment0 = []
+    moment10 = []
+    for i in range(len(locations0)):
+        #length = round(len(locations0[i:-1])/3)
+        length = float(locations0[i])+((halfspan-float(locations0[i])/3))
+        #moment0.append(float(locations0[length])*sum(lift0[i:-1]))
+        #moment10.append(float(locations0[length])*sum(lift10[i:-1]))
+        moment0.append(length * sum(lift0[i:-1]))
+        moment10.append(length * sum(lift10[i:-1]))
+
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle('Vertically stacked subplots')
+    ax1.plot(locations0,lift0)
+    ax1.plot(locations10,lift10)
+    ax2.plot(locations0, moment0)
+    ax2.plot(locations10, moment10)
     plt.show()
 
     aero_lift0 = np.array(lift0)
@@ -82,4 +94,4 @@ def calculate_aeroloads(lines10, rho, v, q):
 
     return aero_lift0, aero_lift10, aero_moment0, aero_moment10
 
-calculate_aeroloads(lines10, rho, v, q)
+aero_lift0, aero_lift10, aero_moment0, aero_moment10 = calculate_aeroloads(lines10, rho, v, q)
