@@ -69,7 +69,7 @@ n =f(y)
 
 I_s = n * A * y_c**2 + n * A * (a-y_c)**2
 
-I_x = I_x_s - I_x_c
+I_x = I_x_s - I_x_c + I_s
 #print("I_x", I_x)
 
 print(I_x[0])
