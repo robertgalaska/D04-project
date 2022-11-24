@@ -36,6 +36,7 @@ def calculate_inertialloads():
     wtab = []
     vtab = []
     mtab = []
+    no_fuel = []
 
     # plot the fuckntion:
     for i in range(n):
@@ -74,10 +75,12 @@ def calculate_inertialloads():
         wtab.append(z + z4 + z7)
         vtab.append(z1 + z5 + z8)
         mtab.append(z2 + z6 + z9)
+        no_fuel.append(z6 + z9)
 
     inertial_load = np.array(wtab)
     inertial_shear = np.array(vtab)
     inertial_moment = np.array(mtab)
+    inertial_moment_no_fuel = np.array(no_fuel)
 
     plt.subplot(311)
 
@@ -108,6 +111,6 @@ def calculate_inertialloads():
 
     plt.show()
 
-    return inertial_load, inertial_shear, inertial_moment
+    return inertial_load, inertial_shear, inertial_moment, inertial_moment_no_fuel
 
-inertial_load, inertial_shear, inertial_moment = calculate_inertialloads()
+inertial_load, inertial_shear, inertial_moment,inertial_moment_no_fuel = calculate_inertialloads()
