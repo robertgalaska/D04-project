@@ -95,3 +95,4 @@ def calculate_aeroloads(lines10, rho, v, q):
     return aero_lift0, aero_lift10, aero_moment0, aero_moment10
 
 aero_lift0, aero_lift10, aero_moment0, aero_moment10 = calculate_aeroloads(lines10, rho, v, q)
+print(len(aero_moment0))

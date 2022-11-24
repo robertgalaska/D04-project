@@ -18,9 +18,9 @@ def T_integrand(T,G,J):
 from engine import x
 T = x[0]
 
-Theta = np.ones(1000)
+Theta = np.ones(100)
 
-for i in range(0,1000):
+for i in range(0,100):
     T_int = T_integrand(T[:i],G,J[:i])
     Theta[i] = sp.integrate.trapezoid(T_int,y[:i])
 
@@ -40,15 +40,15 @@ from centroid import halfspan
 from inertial_loads import z2tab
 from inertial_loads import mtab
 M_engine = x[1]
-m_tot = mtab[:1000]
+m_tot = mtab[:100]
 M_x = M_engine - m_tot
 def integrand_bending (M_x,E,I_x):
     int = -M_x/(E*I_x)
     return int
 
 
-slope = np.ones(1000)
-for i in range(0,1000):
+slope = np.ones(100)
+for i in range(0,100):
     M_int = integrand_bending(M_x[:i],E,I_x[:i])
     slope[i] = sp.integrate.trapezoid(y[:i],M_int)
 
@@ -63,8 +63,8 @@ plt.ylabel('slope of the wing')
 plt.show()
 
 # deflection calculations
-deflection = np.ones(1000)
-for i in range(0,1000):
+deflection = np.ones(100)
+for i in range(0,100):
     deflect_int = slope[:i]
     deflection[i] = sp.integrate.trapezoid(deflect_int,y[:i])
 
