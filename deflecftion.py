@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 E= 68.9*10**9
 G=26*10**9
-from centroid import I_x, y, J, localchord, y_c
+from centroid import I_x, y, J, localchord, y_c, localt, area, Q
 import scipy as sp
 from scipy import integrate
 
@@ -82,6 +82,18 @@ plt.ylabel('deflection of the wing')
 plt.show()
 
 # Stress calculations:
+#normal:
 ymax = localchord * y_c
 normal = M_x * ymax/I_x
-print()
+print("The maximum normal stress is: ", max(normal))
+
+#shear due to torque:
+sheart = engine_torque/(2*localt*area)
+
+#shear due to shear:
+v = 1
+shears = v*Q/(localt*I_x)
+
+shear = shears + sheart
+print("The maximum shear stress is: ", max(shear))
+
