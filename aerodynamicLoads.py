@@ -4,10 +4,10 @@ import scipy as sp
 from scipy import integrate
 
 ### read the lines
-f = open("MainWing-a=0.00-v=10.00ms-1000steps.txt", "r")
+f = open("MainWing_a=0.00_v=10.00ms_1000steps.txt", "r")
 lines0 = f.readlines()
 f.close()
-g = open("MainWing-a=10.00-v=10.00ms-1000steps.txt", "r")
+g = open("MainWing_a=10.00_v=10.00ms_1000steps.txt", "r")
 lines10 = g.readlines()
 g.close()
 
@@ -118,7 +118,7 @@ def calculate_aeroloads(lines10, rho, v, q):
         aero_moment_0[i]=sp.integrate.trapezoid(aero_shear0[i:], locations0[i:])
         aero_moment_10[i]=sp.integrate.trapezoid(aero_shear10[i:], locations0[i:])
     
-#Calculating the torque distribution
+    #Calculating the torque distribution
     torque0 = []
     torque10 = []
     for i in range(len(locations0)):
@@ -135,7 +135,7 @@ def calculate_aeroloads(lines10, rho, v, q):
         T_aero_0[i] =  sp.integrate.trapezoid(aero_torque0[i:], locations0[i:])
         T_aero_10[i] =  sp.integrate.trapezoid(aero_torque10[i:], locations10[i:])
 
-#Drag coefficients array
+    #Drag coefficients array
 
     aero_induceddrag0 = np.array(dragcoefficients0)
     aero_induceddrag10 = np.array(dragcoefficients10)
@@ -152,18 +152,18 @@ def calculate_aeroloads(lines10, rho, v, q):
         return CLd_distributed, alpha_d
 
     CLd_distributed, alpha_d = desired_CL(CLd)
-'''    
-    fig, (ax1, ax2) = plt.subplots(2)
-    fig.suptitle('Vertically stacked subplots')
-    ax1.plot(locations0,aero_shear0)
-    ax1.plot(locations10,aero_shear10)
-    ax2.plot(locations0, aero_moment_0)
-    ax2.plot(locations10, aero_moment_10)
-    plt.show()
-'''
+    '''    
+        fig, (ax1, ax2) = plt.subplots(2)
+        fig.suptitle('Vertically stacked subplots')
+        ax1.plot(locations0,aero_shear0)
+        ax1.plot(locations10,aero_shear10)
+        ax2.plot(locations0, aero_moment_0)
+        ax2.plot(locations10, aero_moment_10)
+        plt.show()
+    '''
 
 
-    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_0
+    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_10
 
 aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_10= calculate_aeroloads(lines10, rho, v, q)
 

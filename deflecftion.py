@@ -16,8 +16,8 @@ def T_integrand(T,G,J):
     return int
 
 from engine import engine_torque
-from aerodynamicLoads import aero_torque0, aero_torque10
-T = np.add (engine_torque, aero_torque0)
+from aerodynamicLoads import T_aero_0, T_aero_10
+T = np.add (engine_torque,T_aero_0)
 
 Theta = np.ones(100)
 
