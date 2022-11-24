@@ -55,7 +55,7 @@ def calculate_aeroloads(lines10, rho, v, q):
     chords0=[]
     dy0=[]
     CL0=0
-    for i in range(101):
+    for i in range(100):
         locations0.append(array_values0[i,1])
         liftcoefficients0.append(array_values0[i,4])
         dragcoefficients0.append(array_values0[i,6])
