@@ -37,11 +37,11 @@ plt.show()
 
 from centroid import halfspan
 # in order to integrate this we define a new function for scipy to integrate
-from inertial_loads import z2tab
-from inertial_loads import mtab
+
+from inertial_loads import inertial_moment
 from engine import engine_bending
 M_engine = engine_bending
-m_tot = mtab[:100]
+m_tot = inertial_moment[:100]
 M_x = M_engine + m_tot
 def integrand_bending (M_x,E,I_x):
     int = -M_x/(E*I_x)
@@ -51,7 +51,7 @@ def integrand_bending (M_x,E,I_x):
 slope = np.ones(100)
 for i in range(0,100):
     M_int = integrand_bending(M_x[:i],E,I_x[:i])
-    slope[i] = sp.integrate.trapezoid(y[:i],M_int)
+    slope[i] = sp.integrate.trapezoid(M_int, y[:i],)
 
 #print(len(slope))
 #print(slope)
