@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 ### read the lines
-f = open("MainWing-a=0.00-v=10.00ms-1000steps.txt", "r")
+f = open("MainWing_a=0.00_v=10.00ms_1000steps.txt", "r")
 lines0 = f.readlines()
 f.close()
-g = open("MainWing-a=10.00-v=10.00ms-1000steps.txt", "r")
+g = open("MainWing_a=10.00_v=10.00ms_1000steps.txt", "r")
 lines10 = g.readlines()
 g.close()
 
