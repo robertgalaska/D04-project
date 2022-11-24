@@ -30,8 +30,8 @@ theta2 = 88.66
 y = np.linspace(0, halfspan, 100)
 
 localchord = chord(rootchord, labda, halfspan, y)
-#localt = ttoc * localchord
-localt = ttoc
+localt = ttoc * localchord
+#localt = ttoc
 # print("localt", localt)
 h = 0.5 * localchord
 a = 0.048 * localchord
