@@ -114,8 +114,9 @@ print("The maximum normal stress at aoa 10 is: ", max(normal_10))
 #shear due to torque:
 sheart = engine_torque/(2*localt*area)
 
+from inertial_loads import inertial_shear
 #shear due to shear:
-v = 1
+v = inertial_shear
 shears = v*Q/(localt*I_x)
 
 shear = shears + sheart
