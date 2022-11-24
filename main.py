@@ -31,8 +31,6 @@ def combine_bendingmoment(aero_moment0, aero_moment10, engine_bending, inertial_
     axs[1].set_ylabel('Moment [Nm]')
     fig.tight_layout()
     plt.show()
-    print(len(total_bending_0))
-
 
 combine_bendingmoment(aero_moment0, aero_moment10, engine_bending, inertial_moment)
 
