@@ -45,10 +45,12 @@ from aerodynamicLoads import aero_moment10
 M_engine = engine_bending
 m_tot = inertial_moment[:100]
 M_x = M_engine + inertial_moment + aero_moment0
+
 #print(M_engine[0])
 #print(aero_moment0[0])
 #print(M_0[0])
 M_10 = M_engine + inertial_moment + aero_moment10
+print(M_10[0])
 def integrand_bending (M_x,E,I_x):
     int = -M_x/(E*I_x)
     return int
