@@ -1,11 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy as sp
+from scipy import integrate
 
 ### read the lines
-f = open("MainWing-a=0.00-v=10.00ms-1000steps.txt", "r")
+f = open("MainWing_a=0.00_v=10.00ms_1000steps.txt", "r")
 lines0 = f.readlines()
 f.close()
-g = open("MainWing-a=10.00-v=10.00ms-1000steps.txt", "r")
+g = open("MainWing_a=10.00_v=10.00ms_1000steps.txt", "r")
 lines10 = g.readlines()
 g.close()
 
@@ -56,7 +58,7 @@ def calculate_aeroloads(lines10, rho, v, q):
     dy0=[]
     CL0=0
     for i in range(101):
-        locations0.append(array_values0[i,1])
+        locations0.append(float(array_values0[i,1]))
         liftcoefficients0.append(array_values0[i,4])
         dragcoefficients0.append(array_values0[i,6])
         momentcoefficients0.append(array_values0[i,7])
@@ -81,10 +83,10 @@ def calculate_aeroloads(lines10, rho, v, q):
     dy10=[]
     CL10= 0
     for i in range(101):
-        locations10.append(array_values10[i,1])
+        locations10.append(float(array_values10[i,1]))
         liftcoefficients10.append(array_values10[i,4])
         dragcoefficients10.append(array_values10[i,6])
-        momentcoefficients10.append(array_values10[i,7])
+        momentcoefficients10.append(float(array_values10[i,7]))
         chords10.append(array_values10[i,2])
         dy10.append(round(float(locations10[i])-float(locations10[i-1]),4))
 
@@ -108,7 +110,11 @@ def calculate_aeroloads(lines10, rho, v, q):
         moment10.append(length * sum(lift10[i:-1]))
         torque0.append(q*float(momentcoefficients0[i])*float(chords0[i]))
         torque10.append(q*float(momentcoefficients10[i])*float(chords10[i]))
-        
+
+
+
+    locations0 = np.array(locations0)
+    locations10 =np.array(locations10)
     aero_lift0 = np.array(lift0)
     aero_lift10 = np.array(lift10)
     aero_moment0 = np.array(moment0)
@@ -117,6 +123,14 @@ def calculate_aeroloads(lines10, rho, v, q):
     aero_induceddrag10 = np.array(dragcoefficients10)
     aero_torque0= np.array(torque0)
     aero_torque10= np.array(torque10)
+
+    #Aero torque distribution
+    T_aero_0 = np.zeros(100)
+    T_areo_10 = np.zeros(100)
+    for i in range(len(locations0)):
+        T_aero_0 =  sp.integrate.trapezoid(aero_torque0[i:], locations0[i:])
+    for i in range(len(locations0)):
+        T_aero_10 =  sp.integrate.trapezoid(aero_torque10[i:], locations10[i:])
 
     #Calculate the distributed desired lift coefficient and the corresponding AoA
     CLd_distributed = []
@@ -141,8 +155,9 @@ def calculate_aeroloads(lines10, rho, v, q):
 
 
 
-    return aero_lift0, aero_lift10, aero_moment0, aero_moment10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, aero_torque0, aero_torque10
+    return aero_lift0, aero_lift10, aero_moment0, aero_moment10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_0
 
-aero_lift0, aero_lift10, aero_moment0, aero_moment10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, aero_torque0, aero_torque10= calculate_aeroloads(lines10, rho, v, q)
+aero_lift0, aero_lift10, aero_moment0, aero_moment10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_0= calculate_aeroloads(lines10, rho, v, q)
+print(T_aero_0)
 
 #print(CLd_distributed)
