@@ -39,9 +39,10 @@ from centroid import halfspan
 # in order to integrate this we define a new function for scipy to integrate
 from inertial_loads import z2tab
 from inertial_loads import mtab
-M_engine = x[1]
+from engine import engine_bending
+M_engine = engine_bending
 m_tot = mtab[:100]
-M_x = M_engine - m_tot
+M_x = M_engine + m_tot
 def integrand_bending (M_x,E,I_x):
     int = -M_x/(E*I_x)
     return int
