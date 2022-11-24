@@ -80,7 +80,7 @@ def calculate_aeroloads(lines10, rho, v, q):
     chords10=[]
     dy10=[]
     CL10= 0
-    for i in range(101):
+    for i in range(100):
         locations10.append(array_values10[i,1])
         liftcoefficients10.append(array_values10[i,4])
         dragcoefficients10.append(array_values10[i,6])
