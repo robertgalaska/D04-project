@@ -24,7 +24,7 @@ def engineload_takeoff(thrust_cruise, sweep_angle, x, y, z):
             y_wing = (36.74 / 2) * (i / 100)
             y_wing0.append(y_wing)
 
-            if y_wing >= 6.43:
+            if y_wing <= 6.43:
 
                 x_thrust = thrust_cruise * math.cos(sweep_angle)
                 y_thrust = thrust_cruise * math.sin(sweep_angle)
