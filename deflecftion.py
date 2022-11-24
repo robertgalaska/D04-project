@@ -41,14 +41,14 @@ from centroid import halfspan
 from inertial_loads import inertial_moment
 from engine import engine_bending
 from aerodynamicLoads import aero_moment0
-from inertial_loads import inertial_moment_no_fuel
+from aerodynamicLoads import aero_moment10
 M_engine = engine_bending
 m_tot = inertial_moment[:100]
-M_x = M_engine + inertial_moment_no_fuel + aero_moment0
-print(M_engine[0])
-print(inertial_moment_no_fuel[0])
-print(aero_moment0[0])
-print(M_x[0])
+M_x = M_engine + inertial_moment + aero_moment0
+#print(M_engine[0])
+#print(aero_moment0[0])
+#print(M_0[0])
+M_10 = M_engine + inertial_moment + aero_moment10
 def integrand_bending (M_x,E,I_x):
     int = -M_x/(E*I_x)
     return int
@@ -58,6 +58,11 @@ slope = np.ones(100)
 for i in range(0,100):
     M_int = integrand_bending(M_x[:i],E,I_x[:i])
     slope[i] = sp.integrate.trapezoid(M_int, y[:i],)
+
+slope_10 = np.ones(100)
+for i in range(0,100):
+    M_int = integrand_bending(M_10[:i],E,I_x[:i])
+    slope_10[i] = sp.integrate.trapezoid(M_int, y[:i],)
 
 #print(len(slope))
 #print(slope)
@@ -75,10 +80,24 @@ for i in range(0,100):
     deflect_int = slope[:i]
     deflection[i] = sp.integrate.trapezoid(deflect_int,y[:i])
 
-plt.plot(y,deflection)
-plt.title('deflection distribution')
-plt.xlabel('Span position')
-plt.ylabel('deflection of the wing')
+deflection_10 = np.ones(100)
+for i in range(0,100):
+    deflect_int = slope_10[:i]
+    deflection_10[i] = sp.integrate.trapezoid(deflect_int,y[:i])
+
+fig, axs = plt.subplots(2)
+# first plot: deflection at aoa 0
+axs[0].plot(y, deflection)
+axs[0].set_title('Deflection at angle of attack at 0 deg [m]')
+axs[0].set_xlabel('Spanwise location [m]')
+axs[0].set_ylabel('Deflection [m]')
+# second plot: deflection at aoa 10
+axs[1].plot(y, deflection_10, 'tab:orange')
+axs[1].set_title('Deflection at angle of attack at 10 deg [m]')
+axs[1].set_xlabel('Spanwise location [m]')
+axs[1].set_ylabel('Deflection [m]')
+fig.tight_layout()
+plt.show()
 
 plt.show()
 
