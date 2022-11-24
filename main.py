@@ -3,7 +3,7 @@ from engine import*
 from inertial_loads import*
 
 def combine_shearloads(aero_lift0, aero_lift10):
-    total_shear_0 = aero_lift0
+    total_shear_0 = np.add(aero_lift0)
     total_shear_10 = aero_lift10
 
 def combine_bendingmoment(aero_moment0, aero_moment10, engine_bending, inertial_moment):

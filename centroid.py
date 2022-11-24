@@ -113,3 +113,6 @@ print(Volume)
 density = 2700
 mass = density * Volume
 print("The mass of this wingbox configuration is: ", mass)
+
+#Q for shear calculations:
+Q = 0.01964*localchord**2*localt
