@@ -1,6 +1,6 @@
 from aerodynamicLoads import*
 from engine import*
-from inertialloads import*
+from inertial_loads import*
 
 def combine_shearloads(aero_lift0, aero_lift10):
     total_shear_0 = aero_lift0
