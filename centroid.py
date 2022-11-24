@@ -68,7 +68,8 @@ A = 0.000045
 
 
 points = [0, 3, 6, 9, 12, 15, halfspan]
-nofstringers = [150, 125, 100, 80, 60, 50, 40]
+#nofstringers = [150, 125, 100, 80, 60, 50, 40]
+nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
 
