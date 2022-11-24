@@ -41,16 +41,16 @@ from centroid import halfspan
 
 from inertial_loads import inertial_moment
 from engine import engine_bending
-from aerodynamicLoads import aero_moment0
-from aerodynamicLoads import aero_moment10
+from aerodynamicLoads import aero_moment_0
+from aerodynamicLoads import aero_moment_10
 M_engine = engine_bending
 m_tot = inertial_moment[:100]
-M_x = M_engine + inertial_moment + aero_moment0
+M_x = M_engine + inertial_moment + aero_moment_0
 
 #print(M_engine[0])
 #print(aero_moment0[0])
 #print(M_0[0])
-M_10 = M_engine + inertial_moment + aero_moment10
+M_10 = M_engine + inertial_moment + aero_moment_10
 print(M_10[0])
 def integrand_bending (M_x,E,I_x):
     int = -M_x/(E*I_x)

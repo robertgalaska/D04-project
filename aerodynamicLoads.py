@@ -108,8 +108,8 @@ def calculate_aeroloads(lines10, rho, v, q):
     aero_shear0=np.zeros(100)
     aero_shear10=np.zeros(100)
     for i in range(len(locations0)):
-        aero_shear0[i]=sp.integrate.trapezoid(aero_lift0[i:], locations0[i:])
-        aero_shear10[i]=sp.integrate.trapezoid(aero_lift10[i:], locations10[i:])
+        aero_shear0[i]= -sp.integrate.trapezoid(aero_lift0[i:], locations0[i:])
+        aero_shear10[i]= -sp.integrate.trapezoid(aero_lift10[i:], locations10[i:])
 
 #Bending moment distribution
     aero_moment_0=np.zeros(100)
