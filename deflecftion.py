@@ -19,10 +19,10 @@ from engine import x
 T = x[0]
 
 Theta = np.ones(1000)
-print(T)
+
 for i in range(0,1000):
     T_int = T_integrand(T[:i],G,J[:i])
-    Theta[i] = sp.integrate.trapezoid(y[:i],T_int)
+    Theta[i] = sp.integrate.trapezoid(T_int,y[:i])
 
 
 plt.plot(y, Theta)
@@ -66,7 +66,7 @@ plt.show()
 deflection = np.ones(1000)
 for i in range(0,1000):
     deflect_int = slope[:i]
-    deflection[i] = sp.integrate.trapezoid(y[:i],deflect_int)
+    deflection[i] = sp.integrate.trapezoid(deflect_int,y[:i])
 
 plt.plot(y,deflection)
 plt.title('deflection distribution')
