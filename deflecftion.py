@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 E= 68.9*10**9
 G=26*10**9
-from centroid import I_x, y, J
+from centroid import I_x, y, J, localchord, y_c
 import scipy as sp
 from scipy import integrate
 
@@ -15,8 +15,8 @@ def T_integrand(T,G,J):
     int = T/(G*J)
     return int
 
-from engine import x
-T = x[0]
+from engine import engine_torque
+T = engine_torque
 
 Theta = np.ones(100)
 
@@ -74,3 +74,8 @@ plt.xlabel('Span position')
 plt.ylabel('deflection of the wing')
 
 plt.show()
+
+# Stress calculations:
+ymax = localchord * y_c
+normal = M_x * ymax/I_x
+print()
