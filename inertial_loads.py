@@ -7,110 +7,64 @@ def calculate_inertialloads():
     # add your dimensions
     c_r = 6.12
     span = 36.74
+    y_wing0 = []
 
-    # fuel weight
+    w_weight = []
+    w_shear = []
+    w_moment = []
+
+    for i in range(100):
+
+        y_wing = (36.74 / 2) * (i / 100)
+        y_wing0.append(y_wing)
+
+        total_weight = 9.65 * y_wing ** 2 - 445.77 * y_wing + 5147.3
+        total_shear = -1 * (3.217 * y_wing ** 3 - 222.9 * y_wing ** 2 + 5147.3 * y_wing - 39235.8)
+        total_moment = -1 * (0.804 * y_wing ** 4 - 74.3 * y_wing ** 3 + 2573.7 * y_wing ** 2 - 39235.8 * y_wing + 221283.5)
+
+        # engine weight
+        if y_wing < 6.43:
+
+            engine_weight = 0
+            engine_shear = 34780
+            engine_moment = 34780 * y_wing - 224214
+
+            total_weight += engine_weight
+            total_shear += engine_shear
+            total_moment += engine_moment
 
 
-    # def wf(y):
-    # return 0.0175 * c_r ** 2 - y ** 2 * 0.105 * c_r ** 2 / b ** 2
-    # step
-    n = 100
-    step = 0.8 * span / (2 * n)
-    # initialize z and y
-    ztab = []
-    z1tab = []
-    z2tab = []
+        w_weight.append(total_weight)
+        w_shear.append(total_shear)
+        w_moment.append(total_moment)
 
-    z4tab = []
-    z5tab = []
-    z6tab = []
+    inertial_load = np.array(w_weight)
+    inertial_shear = np.array(w_shear)
+    inertial_moment = np.array(w_moment)
 
-    ytab = []
-    y1tab = []
-    y2tab = []
 
-    z7tab = []
-    z8tab = []
-    z9tab = []
+    fig, axs = plt.subplots(3)
+    # first plot: shear
+    axs[0].plot(y_wing0, w_weight)
+    axs[0].set_title('Weight over the wing[N]')
+    axs[0].set_xlabel('Spanwise location [m]')
+    axs[0].set_ylabel('Weight [N]')
+    # second plot: bending moment
 
-    wtab = []
-    vtab = []
-    mtab = []
-    no_fuel = []
+    axs[1].plot(y_wing0, w_shear, 'tab:orange')
+    axs[1].set_title('Shear over the wing [N]')
+    axs[1].set_xlabel('Spanwise location [m]')
+    axs[1].set_ylabel('Shear [N]')
+    fig.tight_layout()
 
-    # plot the fuckntion:
-    for i in range(n):
-
-        # fuel
-        if i * step < 14.7:
-            y = i * step
-            z = 15.31 * y ** 2 - 562.7 * y + 5170
-            z1 = -(5.1 * y ** 3 - 281.4 * y ** 2 + 5170 * y - 31391.5)
-            z2 = -(1.275 * y ** 4 - 93.8 * y ** 3 + 2585 * y ** 2 - 31391.5 * y + 141284.28)
-            ytab.append(y)
-            ztab.append(z)
-            z1tab.append(z1)
-            z2tab.append(z2)
-
-        if i * step < 18.37:
-            # wing weight
-            z4 = 9.65 * y ** 2 - 445.77 * y + 5147.3
-            z5 = -1 * (3.217 * y ** 3 - 222.9 * y ** 2 + 5147.3 * y - 39235.8)
-            z6 = -1 * (0.804 * y ** 4 - 74.3 * y ** 3 + 2573.7 * y ** 2 - 39235.8 * y + 221283.5)
-
-            z4tab.append(z4)
-            z5tab.append(z5)
-            z6tab.append(z6)
-
-        if i * step < 6.43:
-            # engine weight
-            z7 = 0
-            z8 = -34780
-            z9 = -34780 * y + 224214
-
-            z7tab.append(z7)
-            z8tab.append(z8)
-            z9tab.append(z9)
-
-        wtab.append(z + z4 + z7)
-        vtab.append(z1 + z5 + z8)
-        mtab.append(z2 + z6 + z9)
-        no_fuel.append(z6 + z9)
-
-    inertial_load = np.array(wtab)
-    inertial_shear = np.array(vtab)
-    inertial_moment = np.array(mtab)
-    inertial_moment_no_fuel = np.array(no_fuel)
-
-    plt.subplot(311)
-
-    plt.plot(ytab, wtab, color="blue")
-    # plt.margins(0.4,0)
-    plt.title('Load diagram for weight')
-    plt.xlabel('Position from center of fuselage [m]')
-    plt.ylabel('Weight [N/m]')
-    plt.grid(1)
-
-    plt.subplot(312)
-
-    plt.plot(ytab, vtab, color="blue")
-    # plt.margins(0.4,0)
-    plt.title('Shear force distibution')
-    plt.xlabel('Position from center of fuselage [m]')
-    plt.ylabel('Shear [N]')
-    plt.grid(1)
-
-    plt.subplot(313)
-
-    plt.plot(ytab, mtab, color="blue")
-    # plt.margins(0.2,0)
-    plt.title('Bending moment distribution')
-    plt.xlabel('Position from center of fuselage [m]')
-    plt.ylabel('Bending moment [Nm]')
-    plt.grid(1)
+    axs[2].plot(y_wing0, w_moment, 'tab:orange')
+    axs[2].set_title('Moment over the wing [Nm]')
+    axs[2].set_xlabel('Spanwise location [m]')
+    axs[2].set_ylabel('Moment [Nm]')
+    fig.tight_layout()
 
     plt.show()
 
-    return inertial_load, inertial_shear, inertial_moment, inertial_moment_no_fuel
+    return inertial_load, inertial_shear, inertial_moment
 
-inertial_load, inertial_shear, inertial_moment,inertial_moment_no_fuel = calculate_inertialloads()
+inertial_load, inertial_shear, inertial_moment = calculate_inertialloads()
