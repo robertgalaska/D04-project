@@ -21,7 +21,7 @@ def chord(rootchord, labda, halfspan, y):
 
 
 # x location of the centroid of a trapezoid
-ttoc = float(input("Wingbox thickness to chord ratio (feasible values <0.003): "))
+#ttoc = float(input("Wingbox thickness to chord ratio (feasible values <0.003): "))
 theta1 = 88.06
 theta2 = 88.66
 # localchord= chord(rootchord, labda, halfspan, 5)
@@ -30,7 +30,14 @@ theta2 = 88.66
 y = np.linspace(0, halfspan, 100)
 
 localchord = chord(rootchord, labda, halfspan, y)
-localt = ttoc * localchord
+#localt = ttoc * localchord
+
+points = [0, 3, 6, 9, 12, 15, halfspan]
+thickness = [0.03, 0.025, 0.02, 0.0175, 0.015, 0.0125, 0.01]
+g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
+localt = g(y)
+
+
 #localt = ttoc
 # print("localt", localt)
 h = 0.5 * localchord
