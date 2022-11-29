@@ -13,8 +13,8 @@ g.close()
 
 ### define constants
 s = 135/2
-rho=1.225
-v=10
+rho=0.4416
+v=256.55
 q = 0.5*rho*v**2
 halfspan = 18.3689
 CLd=1
