@@ -13,8 +13,8 @@ g.close()
 
 ### define constants
 s = 135/2
-rho=1.225
-v=10
+rho=0.44
+v=256.55
 q = 0.5*rho*v**2
 halfspan = 18.3689
 CLd=1
@@ -115,8 +115,8 @@ def calculate_aeroloads(lines10, rho, v, q):
     aero_moment_0=np.zeros(100)
     aero_moment_10=np.zeros(100)
     for i in range(100):
-        aero_moment_0[i]=sp.integrate.trapezoid(aero_shear0[i:], locations0[i:])
-        aero_moment_10[i]=sp.integrate.trapezoid(aero_shear10[i:], locations0[i:])
+        aero_moment_0[i]= -sp.integrate.trapezoid(aero_shear0[i:], locations0[i:])
+        aero_moment_10[i]= -sp.integrate.trapezoid(aero_shear10[i:], locations0[i:])
     
     #Calculating the torque distribution
     torque0 = []
@@ -166,5 +166,5 @@ def calculate_aeroloads(lines10, rho, v, q):
     return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_10
 
 aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_10= calculate_aeroloads(lines10, rho, v, q)
-
-
+print(aero_shear0)
+print(aero_moment_0)
