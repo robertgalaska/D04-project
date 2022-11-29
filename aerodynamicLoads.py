@@ -4,10 +4,10 @@ import scipy as sp
 from scipy import integrate
 
 ### read the lines
-f = open("MainWing_a=0.00_v=10.00ms_1000steps.txt", "r")
+f = open("MainWing-a=0.00-v=10.00ms-1000steps.txt", "r")
 lines0 = f.readlines()
 f.close()
-g = open("MainWing_a=10.00_v=10.00ms_1000steps.txt", "r")
+g = open("MainWing-a=10.00-v=10.00ms-1000steps.txt", "r")
 lines10 = g.readlines()
 g.close()
 
@@ -68,7 +68,7 @@ def calculate_aeroloads(lines10, rho, v, q):
         chords0.append(float(array_values0[i,2]))
         dy0.append(round(float(locations0[i])-float(locations0[i-1]),4))
 
-#calculate the total lift for AoA0        
+    #calculate the total lift for AoA0        
     lift0 = []
     totlift0 = 0
     moment0=[]
@@ -94,7 +94,7 @@ def calculate_aeroloads(lines10, rho, v, q):
         chords10.append(float(array_values10[i,2]))
         dy10.append(round(locations10[i]-locations10[i-1],4))
 
-#calculate the total lift for AoA10
+    #calculate the total lift for AoA10
     lift10 = []
     totlift10 = 0
     for i in range(len(locations10)):
@@ -102,16 +102,16 @@ def calculate_aeroloads(lines10, rho, v, q):
         totlift10 += dy10[i]*lift10[i]
     CL10= totlift10/(q*s)
 
-#shear distribution
+    #shear distribution
     aero_lift0 = np.array(lift0)
     aero_lift10 = np.array(lift10)
     aero_shear0=np.zeros(100)
     aero_shear10=np.zeros(100)
     for i in range(len(locations0)):
-        aero_shear0[i]= -sp.integrate.trapezoid(aero_lift0[i:], locations0[i:])
-        aero_shear10[i]= -sp.integrate.trapezoid(aero_lift10[i:], locations10[i:])
+        aero_shear0[i]=sp.integrate.trapezoid(aero_lift0[i:], locations0[i:])
+        aero_shear10[i]=sp.integrate.trapezoid(aero_lift10[i:], locations10[i:])
 
-#Bending moment distribution
+    #Bending moment distribution
     aero_moment_0=np.zeros(100)
     aero_moment_10=np.zeros(100)
     for i in range(100):
@@ -139,6 +139,11 @@ def calculate_aeroloads(lines10, rho, v, q):
 
     aero_induceddrag0 = np.array(dragcoefficients0)
     aero_induceddrag10 = np.array(dragcoefficients10)
+    ID_aero_0 = np.zeros(100)
+    ID_aero_10 = np.zeros(100)
+    for i in range(len(locations0)):
+        ID_aero_0[i] =  sp.integrate.trapezoid(aero_induceddrag0[i:], locations0[i:])
+        ID_aero_10[i] =  sp.integrate.trapezoid(aero_induceddrag10[i:], locations10[i:])
 
     #Calculate the distributed desired lift coefficient and the corresponding AoA
     CLd_distributed = []
@@ -153,18 +158,18 @@ def calculate_aeroloads(lines10, rho, v, q):
 
     CLd_distributed, alpha_d = desired_CL(CLd)
     '''    
-        fig, (ax1, ax2) = plt.subplots(2)
-        fig.suptitle('Vertically stacked subplots')
-        ax1.plot(locations0,aero_shear0)
-        ax1.plot(locations10,aero_shear10)
-        ax2.plot(locations0, aero_moment_0)
-        ax2.plot(locations10, aero_moment_10)
-        plt.show()
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.suptitle('Vertically stacked subplots')
+    ax1.plot(locations0,aero_shear0)
+    ax1.plot(locations10,aero_shear10)
+    ax2.plot(locations0, aero_moment_0)
+    ax2.plot(locations10, aero_moment_10)
+    plt.show()
     '''
 
 
-    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_10
+    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, CLd_distributed, alpha_d, T_aero_0, T_aero_0
 
-aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, aero_induceddrag0, aero_induceddrag10, CLd_distributed, alpha_d, T_aero_0, T_aero_10= calculate_aeroloads(lines10, rho, v, q)
+aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, CLd_distributed, alpha_d, T_aero_0, T_aero_10= calculate_aeroloads(lines10, rho, v, q)
 
 
