@@ -166,10 +166,24 @@ plt.show()
 # Stress calculations:
 #normal:
 ymax = y_c
-normal = M_x * ymax/I_x
+normal = M_2 * ymax/I_x
 print("The maximum normal stress at aoa 0 is: ", max(normal))
 normal_10 = M_10 *ymax/I_x
 print("The maximum normal stress at aoa 10 is: ", max(normal_10))
+
+fig, axs = plt.subplots(2)
+# first plot: deflection at aoa 0
+axs[0].plot(y, normal)
+axs[0].set_title('normal stress')
+axs[0].set_xlabel('Spanwise location [m]')
+axs[0].set_ylabel('stress [Pa]')
+# plot of deflection at load factor 2.5
+axs[1].plot(y, normal_10, 'tab:orange')
+axs[1].set_title('normal stress at aoa 10 degrees')
+axs[1].set_xlabel('Spanwise location [m]')
+axs[1].set_ylabel('Stress [Pa]')
+plt.show()
+
 
 #shear due to torque:
 sheart = engine_torque/(2*localt*area)

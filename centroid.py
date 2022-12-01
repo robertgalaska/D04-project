@@ -33,12 +33,12 @@ localchord = chord(rootchord, labda, halfspan, y)
 #localt = ttoc * localchord
 
 points = [0, 3, 6, 9, 12, 15, halfspan]
-thickness = [0.03, 0.025, 0.02, 0.0175, 0.015, 0.0125, 0.01]
+thickness = [0.005, 0.004, 0.003, 0.002, 0.001, 0.001, 0.001]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
 points = [0, 3, 6, 9, 12, 15, halfspan]
-nofstringers = [150, 125, 100, 80, 60, 50, 40]
+nofstringers = [200, 125, 100, 80, 60, 50, 40]
 #nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
