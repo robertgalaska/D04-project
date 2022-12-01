@@ -172,21 +172,27 @@ print('The max deflection is', max(Deflections, key=abs),'. This is for load fac
 #normal:
 ymax = y_c
 normal = M_2 * ymax/I_x
-print("The maximum normal stress at aoa 0 is: ", max(normal))
-normal_10 = M_10 *ymax/I_x
-print("The maximum normal stress at aoa 10 is: ", max(normal_10))
+print("The maximum normal stress at load factor 2.5 is : ", max(normal))
+normal_10 = M_minus_1 *ymax/I_x
+print("The maximum normal stress at load factor -1 is: ", max(normal_10))
+normal_1 = M_x *ymax/I_x
+print("The maximum normal stress at load factor 1 is: ", max(normal_1))
 
-fig, axs = plt.subplots(2)
+fig, axs = plt.subplots(3)
 # first plot: deflection at aoa 0
-axs[0].plot(y, normal)
-axs[0].set_title('normal stress')
+axs[0].plot(y, normal_1)
+axs[0].set_title('normal stress at load factor 1')
 axs[0].set_xlabel('Spanwise location [m]')
 axs[0].set_ylabel('stress [Pa]')
 # plot of deflection at load factor 2.5
-axs[1].plot(y, normal_10, 'tab:orange')
-axs[1].set_title('normal stress at aoa 10 degrees')
+axs[1].plot(y, normal, 'tab:orange')
+axs[1].set_title('normal stress at load factor 2.5')
 axs[1].set_xlabel('Spanwise location [m]')
 axs[1].set_ylabel('Stress [Pa]')
+axs[2].plot(y, normal_10, 'tab:green')
+axs[2].set_title('normal stress at load factor -1')
+axs[2].set_xlabel('Spanwise location [m]')
+axs[2].set_ylabel('Stress [Pa]')
 fig.tight_layout()
 plt.show()
 
