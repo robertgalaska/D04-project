@@ -106,7 +106,7 @@ plt.show()
 
 # Stress calculations:
 #normal:
-ymax = localchord * y_c
+ymax = y_c
 normal = M_x * ymax/I_x
 print("The maximum normal stress at aoa 0 is: ", max(normal))
 normal_10 = M_10 *ymax/I_x
