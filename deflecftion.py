@@ -69,7 +69,7 @@ from centroid import halfspan
 
 from inertial_loads import inertial_moment
 from engine import engine_bending
-from aerodynamicLoads import aero_moment_0
+from aerodynamicLoads import aero_moment_0, aero_shear0
 from aerodynamicLoads import aero_moment_10
 M_engine = engine_bending
 m_tot = inertial_moment[:100]
@@ -176,7 +176,7 @@ sheart = engine_torque/(2*localt*area)
 
 from inertial_loads import inertial_shear
 #shear due to shear:
-v = inertial_shear
+v = inertial_shear + aero_shear0
 shears = v*Q/(localt*I_x)
 
 shear = shears + sheart
