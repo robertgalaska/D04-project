@@ -33,7 +33,7 @@ localchord = chord(rootchord, labda, halfspan, y)
 #localt = ttoc * localchord
 
 points = [0, 2, 4, 6, 9, 12, 15, halfspan]
-thickness = [0.011, 0.01, 0.01, 0.01, 0.01, 0.009, 0.009, 0.0085]
+thickness = [0.0065, 0.0055, 0.0045, 0.004, 0.0035, 0.003, 0.0025, 0.002]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
