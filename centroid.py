@@ -33,8 +33,8 @@ localchord = chord(rootchord, labda, halfspan, y)
 #localt = ttoc * localchord
 
 points = [0, 3, 6, 9, 12, 15, halfspan]
-thickness = [0.015, 0.0125, 0.01, 0.00875, 0.0075, 0.00625, 0.005]
-g = sp.interpolate.interp1d(points, thickness, kind="next", fill_value="extrapolate")
+thickness = [0.03, 0.025, 0.02, 0.0175, 0.015, 0.0125, 0.01]
+g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
 
@@ -71,21 +71,20 @@ I_x_c = (h1 / 12) * (a1 ** 3 + 3 * a1 * c1 ** 2 + 3 * c1 * (
             a1 ** 2) + b1 ** 3 + c1 * b1 ** 2 + a1 * b1 ** 2 + b1 * c1 ** 2 + 2 * a1 * b1 * c1 + b1 * a1 ** 2)
 # print("I_x_c", I_x_c)
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
-A = 0.00045
+A = 0.000045
 # n = (h // 0.1)
 
 
 points = [0, 3, 6, 9, 12, 15, halfspan]
-#nofstringers = [150, 125, 100, 80, 60, 50, 40]
-nofstringers = [75, 62, 50, 40, 30, 25, 20]
+nofstringers = [150, 125, 100, 80, 60, 50, 40]
+#nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
 
-I_s = n * A * (y_c) ** 2 + n * A * (a - y_c) ** 2
+I_s = n * A * y_c ** 2 + n * A * (a - y_c) ** 2
 
 I_x = I_x_s - I_x_c + I_s
 # print("I_x", I_x)
-print(I_x_c[0],I_x_s[0],I_s[0], y_c[0])
 
 
 area = ((a - localt) + (b - localt)) * (h - localt) / 2
