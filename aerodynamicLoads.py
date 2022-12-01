@@ -12,7 +12,7 @@ lines10 = g.readlines()
 g.close()
 
 ### define constants
-s = 135/2
+s = 135
 rho=0.4416
 v=256
 q = 0.5*rho*v**2
