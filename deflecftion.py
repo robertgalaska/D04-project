@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+
 E= 68.9*10**9
 G=26*10**9
 from centroid import I_x, y, J, localchord, y_c, localt, area, Q
@@ -162,7 +163,11 @@ fig.tight_layout()
 plt.show()
 
 plt.show()
-
+Twists = [Theta[-1], Theta_2[-1], Theta_minus_1[-1]]
+Deflections = [deflection[-1], deflection_2[-1], deflection_minus_1[-1]]
+case = [1, 2.5, -1]
+print('The max twist is', max(Twists, key=abs),'. This is for load factor', case[Twists.index(max(Twists, key=abs))])
+print('The max deflection is', max(Deflections, key=abs),'. This is for load factor', case[Deflections.index(max(Deflections, key = abs))])
 # Stress calculations:
 #normal:
 ymax = y_c
