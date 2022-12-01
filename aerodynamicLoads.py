@@ -147,39 +147,52 @@ def calculate_aeroloads(lines10, rho, v, q):
     for i in range(len(locations0)):
         ID_aero_0[i] =  sp.integrate.trapezoid(aero_induceddrag0[i:], locations0[i:])
         ID_aero_10[i] =  sp.integrate.trapezoid(aero_induceddrag10[i:], locations10[i:])
-
+    
     #Calculate the distributed desired lift coefficient and the corresponding AoA
     CLd_distributed = []
+    CMd_distributed = []
+    Cidd_distributed = []
     alpha_d=0
     def desired_CL(CLd):
         for i in range(100):
-            CLd_y= CL0 + ((CLd-CL0)/(CL10-CL0))*(float(liftcoefficients10[i])-float(liftcoefficients0[i]))
+            CLd_y= float(liftcoefficients0[i]) + ((CLd-CL0)/(CL10-CL0))*(float(liftcoefficients10[i])-float(liftcoefficients0[i]))
+            CMd_y= float(momentcoefficients0[i]) + ((CLd-CL0)/(CL10-CL0))*(float(momentcoefficients10[i])-float(momentcoefficients0[i]))
+            Cidd_y= float(dragcoefficients0[i]) + ((CLd-CL0)/(CL10-CL0))*(float(dragcoefficients10[i])-float(dragcoefficients0[i]))
             CLd_distributed.append(CLd_y)
+            CMd_distributed.append(CMd_y)
+            Cidd_distributed.append(Cidd_y)
 
         alpha_d= ((CLd-CL0)/(CL10-CL0))*np.sin(10*np.pi/180)
-        return CLd_distributed, alpha_d
+        return CLd_distributed, alpha_d, CMd_distributed, Cidd_distributed 
 
-    CLd_distributed, alpha_d = desired_CL(CLd)
+    CLd_distributed, alpha_d, CMd_distributed, Cidd_distributed = desired_CL(CLd)
     
     #Calculating the lift distribution for the desired lift coefficient
     lift_CLd = []
+    torque_CLd = []
+    drag_CLd = []
     totlift_CLd = 0
     for i in range(len(locations0)):
         lift_CLd.append(q*CLd_distributed[i]*chords0[i])
+        torque_CLd.append(q*CMd_distributed[i]*(chords0[i])**2)
+        drag_CLd.append(q*Cidd_distributed[i]*chords0[i])
         totlift_CLd += dy0[i]*lift_CLd[i]
     
     aero_shear_CLd=np.zeros(100)
     aero_moment_CLd=np.zeros(100)
+    aero_torque_CLd=np.zeros(100)
+    aero_drag_CLd=np.zeros(100)
     for i in range(len(locations0)):
         aero_shear_CLd[i]=-sp.integrate.trapezoid(lift_CLd[i:], locations0[i:])
+        aero_torque_CLd[i] =  sp.integrate.trapezoid(torque_CLd[i:], locations0[i:])
+        aero_drag_CLd[i] = sp.integrate.trapezoid(drag_CLd[i:], locations0[i:])
+        
     for i in range(len(locations0)):
         aero_moment_CLd[i]=-sp.integrate.trapezoid(aero_shear_CLd[i:], locations0[i:])
     
     plt.plot(locations0, aero_shear_CLd)
     plt.show()
-        
-    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, CLd_distributed, alpha_d, T_aero_0, T_aero_0, aero_shear_CLd, aero_moment_CLd
+    
+    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, CLd_distributed, alpha_d, T_aero_0, T_aero_0, aero_shear_CLd, aero_moment_CLd, aero_torque_CLd, aero_drag_CLd 
 
-aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, CLd_distributed, alpha_d, T_aero_0, T_aero_10, aero_shear_CLd, aero_moment_CLd= calculate_aeroloads(lines10, rho, v, q)
-
-
+aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, CLd_distributed, alpha_d, T_aero_0, T_aero_10, aero_shear_CLd, aero_moment_CLd, aero_torque_CLd, aero_drag_CLd = calculate_aeroloads(lines10, rho, v, q)
