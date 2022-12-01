@@ -22,7 +22,7 @@ def combine_shearloads(aero_lift0, aero_lift10, inertial_shear):
     axs[0].plot(y_wing0, total_shear0)
     axs[0].set_title('Shear at angle of attack at 0 deg [Nm]')
     axs[0].set_xlabel('Spanwise location [m]')
-    axs[0].set_ylabel('Shear [Nm]')
+    axs[0].set_ylabel('Shear [kNm]')
     # second plot: shear AoA = 10
     axs[1].plot(y_wing0, total_shear0, 'tab:orange')
     axs[1].set_title('Shear at angle of attack at 10 deg [Nm]')
@@ -47,7 +47,7 @@ def combine_bendingmoment(aero_moment0, aero_moment10, engine_bending, inertial_
     axs[0].plot(y_wing0, total_bending_0)
     axs[0].set_title('Moment at angle of attack at 0 deg [Nm]')
     axs[0].set_xlabel('Spanwise location [m]')
-    axs[0].set_ylabel('Moment [Nm]')
+    axs[0].set_ylabel('Moment [kNm]')
     # second plot: bending moment AoA = 10
     axs[1].plot(y_wing0, total_bending_10, 'tab:orange')
     axs[1].set_title('Moment at angle of attack at 10 deg [Nm]')
@@ -79,7 +79,7 @@ def combine_torque(engine_torque, aero_torque0, aero_torque10):
 
     return total_torque0, total_torque10
 
-combine_shearloads(aero_shear0, aero_shear10, inertial_shear)
-combine_bendingmoment(aero_moment_0, aero_moment_10, engine_bending, inertial_moment)
-combine_torque(engine_torque, T_aero_0, T_aero_10)
+combine_shearloads(aero_lift0, aero_lift10, inertial_shear)
+combine_bendingmoment(aero_moment0, aero_moment10, engine_bending, inertial_moment)
+combine_torque(engine_torque, aero_torque0, aero_torque10)
 
