@@ -33,16 +33,27 @@ localchord = chord(rootchord, labda, halfspan, y)
 #localt = ttoc * localchord
 
 points = [0, 2, 4, 6, 9, 12, 15, halfspan]
-thickness = [0.009, 0.008, 0.008, 0.007, 0.007, 0.0065, 0.006, 0.006]
+thickness = [0.011, 0.01, 0.01, 0.01, 0.01, 0.009, 0.009, 0.0085]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
-points = [0, 3, 6, 9, 12, 15, halfspan]
-nofstringers = [200, 125, 100, 80, 60, 50, 40]
+
+points = [0, 2, 4, 6, 9, 12, 15, halfspan]
+nofstringers = [153, 139, 126, 113, 93, 73, 53, 30]
 #nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
 
+L = 0.02
+y_wingboxstringers = []
+for i in points:
+
+    y_chord = 0.5*chord(rootchord, labda, halfspan, i)
+    stringer_num = y_chord/L
+    y_wingboxstringers.append(stringer_num)
+
+
+print(y_wingboxstringers)
 
 #localt = ttoc
 # print("localt", localt)
@@ -78,7 +89,7 @@ I_x_c = (h1 / 12) * (a1 ** 3 + 3 * a1 * c1 ** 2 + 3 * c1 * (
 # print("I_x_c", I_x_c)
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
 
-L = 0.02
+
 t = 0.005
 A = t*(2*L-t)
 

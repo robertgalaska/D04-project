@@ -17,10 +17,10 @@ def T_integrand(T,G,J):
     return int
 
 from engine import engine_torque
-from aerodynamicLoads import T_aero_0, T_aero_10
-T = np.add (engine_torque,T_aero_0)
-T_2 = np.add (engine_torque,T_aero_0*2.5)
-T_minus_1 = np.add (engine_torque,T_aero_0*-1)
+from aerodynamicLoads import T_aero_0, T_aero_10, aero_torque_CLd_1, aero_torque_CLd_25, aero_torque_CLd_min
+T = np.add (engine_torque,aero_torque_CLd_1)
+T_2 = np.add (engine_torque,aero_torque_CLd_25)
+T_minus_1 = np.add (engine_torque,aero_torque_CLd_min)
 
 Theta = np.ones(100)
 for i in range(0,100):
@@ -39,7 +39,7 @@ for i in range(0,100):
 
 
 
-
+print(Theta_2[-1])
 fig, axs = plt.subplots(3)
 axs[0].plot(y, Theta)
 axs[0].set_title('Twist distribution at angle of attack at 0 deg [m] and load factor 1')
@@ -71,12 +71,12 @@ from centroid import halfspan
 from inertial_loads import inertial_moment
 from engine import engine_bending
 from aerodynamicLoads import aero_moment_0, aero_shear0
-from aerodynamicLoads import aero_moment_10
+from aerodynamicLoads import aero_moment_10, aero_moment_CLd_1, aero_moment_CLd_25, aero_moment_CLd_min
 M_engine = engine_bending
 m_tot = inertial_moment[:100]
-M_x = M_engine + inertial_moment + aero_moment_0
-M_2 = M_engine + inertial_moment + aero_moment_0 * 2.5
-M_minus_1 = M_engine + inertial_moment + aero_moment_0 *-1
+M_x = M_engine + inertial_moment + aero_moment_CLd_1
+M_2 = M_engine + inertial_moment + aero_moment_CLd_25
+M_minus_1 = M_engine + inertial_moment + aero_moment_CLd_min
 #print(M_engine[0])
 #print(aero_moment0[0])
 #print(M_0[0])
@@ -187,6 +187,7 @@ axs[1].plot(y, normal_10, 'tab:orange')
 axs[1].set_title('normal stress at aoa 10 degrees')
 axs[1].set_xlabel('Spanwise location [m]')
 axs[1].set_ylabel('Stress [Pa]')
+fig.tight_layout()
 plt.show()
 
 
