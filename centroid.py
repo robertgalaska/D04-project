@@ -33,7 +33,7 @@ localchord = chord(rootchord, labda, halfspan, y)
 # localt = ttoc * localchord
 
 points = [0, 2, 4, 6, 9, 12, 15, halfspan]
-thickness = [0.0065, 0.0055, 0.0045, 0.004, 0.0035, 0.003, 0.0025, 0.002]
+thickness = [0.018, 0.0175, 0.0175, 0.017, 0.0165, 0.016, 0.015, 0.0145]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
@@ -101,7 +101,7 @@ I_x = I_x_s - I_x_c + I_s
 
 area = ((a - localt) + (b - localt)) * (h - localt) / 2
 perimeter = (a - localt) + (b - localt) + (h - localt) * (1 / sin(radians(theta1)) + 1 / sin(radians(theta2)))
-integral = n * (L - t) / (t + localt) + n * t / (localt + L) + (perimeter - n * L) / localt
+integral = 2*n * (L - t) / (t + localt) + 2*n * t / (localt + L) + (perimeter - 2* n * L) / localt
 J = 4 * area ** 2 / integral
 # print("area",area)
 # print("perimeter", perimeter)
