@@ -109,14 +109,14 @@ J = 4 * area ** 2 / integral
 
 plt.subplot(131)
 plt.plot(y, I_x)
-plt.axis([0, 18.7, 0, 0.025])
+plt.axis([0, 18.7, 0, 0.042])
 plt.title('Moment of inertia')
 plt.xlabel('Span position')
 plt.ylabel('Moment of inertia')
 
 plt.subplot(133)
 plt.plot(y, J)
-plt.axis([0, 18.7, 0, 0.018])
+plt.axis([0, 18.7, 0, 0.026])
 plt.title('Torsional stiffness J')
 plt.xlabel('Span position')
 plt.ylabel('Torsional stiffness')
