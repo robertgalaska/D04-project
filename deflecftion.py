@@ -198,13 +198,13 @@ plt.show()
 
 
 #shear due to torque:
-sheart = engine_torque/(2*localt*area)
+#sheart = engine_torque/(2*localt*area)
 
-from inertial_loads import inertial_shear
+#from inertial_loads import inertial_shear
 #shear due to shear:
-v = inertial_shear + aero_shear0
-shears = v*Q/(localt*I_x)
+#v = inertial_shear + aero_shear0
+#shears = v*Q/(localt*I_x)
 
-shear = shears + sheart
-print("The maximum shear stress is: ", max(shear))
+#shear = shears + sheart
+#print("The maximum shear stress is: ", max(shear))
 
