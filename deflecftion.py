@@ -172,11 +172,11 @@ print('The max deflection is', max(Deflections, key=abs),'. This is for load fac
 #normal:
 ymax = y_c
 normal = M_2 * ymax/I_x
-print("The maximum normal stress at load factor 2.5 is : ", max(normal))
+print("The maximum normal stress at load factor 2.5 is : ", max(normal, key=abs))
 normal_10 = M_minus_1 *ymax/I_x
-print("The maximum normal stress at load factor -1 is: ", max(normal_10))
+print("The maximum normal stress at load factor -1 is: ", max(normal_10, key=abs))
 normal_1 = M_x *ymax/I_x
-print("The maximum normal stress at load factor 1 is: ", max(normal_1))
+print("The maximum normal stress at load factor 1 is: ", max(normal_1, key=abs))
 
 fig, axs = plt.subplots(3)
 # first plot: deflection at aoa 0
