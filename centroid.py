@@ -32,13 +32,13 @@ y = np.linspace(0, halfspan, 100)
 localchord = chord(rootchord, labda, halfspan, y)
 # localt = ttoc * localchord
 
-points = [0, 2, 4, 6, 9, 12, 15, halfspan]
-thickness = [0.018, 0.0175, 0.0175, 0.017, 0.0165, 0.016, 0.015, 0.0145]
+points = [0, 2, 4, 6, 9, 12, 15]
+thickness = [0.0265, 0.024, 0.022, 0.02, 0.015, 0.01, 0.005]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
-points = [0, 2, 4, 6, 9, 12, 15, halfspan]
-nofstringers = [153, 139, 126, 113, 93, 73, 53, 30]
+points = [0, 2, 4, 6 ,9 ,12, 15]
+nofstringers = [153, 139, 126, 113, 93, 73, 53]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
@@ -109,16 +109,18 @@ J = 4 * area ** 2 / integral
 
 plt.subplot(131)
 plt.plot(y, I_x)
-plt.axis([0, 18.7, 0, 0.042])
+plt.axis([0, 18.7, 0, 0.030])
+plt.xticks([0,10,18.37])
 plt.title('Moment of inertia')
-plt.xlabel('Span position')
+plt.xlabel('Span position[m]')
 plt.ylabel('Moment of inertia')
 
 plt.subplot(133)
 plt.plot(y, J)
-plt.axis([0, 18.7, 0, 0.026])
+plt.axis([0, 18.8, 0, 0.025])
+plt.xticks([0,10,18.37])
 plt.title('Torsional stiffness J')
-plt.xlabel('Span position')
+plt.xlabel('Span position[m]')
 plt.ylabel('Torsional stiffness')
 
 plt.show()
