@@ -33,6 +33,11 @@ def calculate_inertialloads():
             total_shear += engine_shear
             total_moment += engine_moment
 
+        if y_wing < 14.7:
+
+            total_weight += 15.31* y_wing**2 - 562.7 * y_wing + 5170
+            total_shear += -5.1 * y_wing**3 + 281.4 * y_wing**2 - 5170*y_wing +7656
+            total_moment += -1.275 *y_wing**4 + 93.8*y_wing**3 - 2585*y_wing**2 +7656*y_wing - 207627.6
 
         w_weight.append(total_weight)
         w_shear.append(total_shear)
