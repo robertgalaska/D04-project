@@ -32,8 +32,8 @@ y = np.linspace(0, halfspan, 100)
 localchord = chord(rootchord, labda, halfspan, y)
 # localt = ttoc * localchord
 
-points = [0, 2, 4, 6, 9, 12, 15]
-thickness = [0.0265, 0.024, 0.022, 0.02, 0.015, 0.01, 0.005]
+points = [0, 2, 4, 6, 9, 12, 14, 16,]
+thickness = [0.022, 0.021, 0.019, 0.018, 0.017, 0.016, 0.014, 0.013]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
