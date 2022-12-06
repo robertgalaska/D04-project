@@ -31,9 +31,6 @@ def calculate_Cld(n):
 
 Cld1, Cld2, Cld3 = calculate_Cld(n)
 
-
-
-
 ### start of function to calculate loads
 def calculate_aeroloads(lines10, rho, v, q):
     ### gather values for AoA0
@@ -65,7 +62,6 @@ def calculate_aeroloads(lines10, rho, v, q):
         i+=1
     array_values0=np.delete(array_values0, (0), axis=0)
     array_values10=np.delete(array_values10, (0), axis=0)
-
     
     ### create list with the lift coefficients according to spanwise location for AoA 0
     locations0=[]
@@ -150,10 +146,15 @@ def calculate_aeroloads(lines10, rho, v, q):
         T_aero_0[i] =  sp.integrate.trapezoid(aero_torque0[i:], locations0[i:])
         T_aero_10[i] =  sp.integrate.trapezoid(aero_torque10[i:], locations10[i:])
 
-    #Drag coefficients array
+    #Induced drag calculations
 
-    aero_induceddrag0 = np.array(dragcoefficients0)
-    aero_induceddrag10 = np.array(dragcoefficients10)
+    aero_induceddrag0 = []
+    aero_induceddrag10 = []
+
+    for i in range(len(locations0)):
+        aero_induceddrag0.append(q*dragcoefficients0[i]*chords0[i])
+        aero_induceddrag10.append(q*dragcoefficients10[i]*chords10[i])
+        
     ID_aero_0 = np.zeros(100)
     ID_aero_10 = np.zeros(100)
     for i in range(len(locations0)):

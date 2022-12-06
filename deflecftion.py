@@ -42,17 +42,17 @@ for i in range(0,100):
 print(Theta_2[-1])
 fig, axs = plt.subplots(3)
 axs[0].plot(y, Theta)
-axs[0].set_title('Twist distribution at angle of attack at 0 deg [m] and load factor 1')
+axs[0].set_title('Twist distribution at load factor 1')
 axs[0].set_xlabel('Spanwise location [m]')
-axs[0].set_ylabel('Angle of twist')
+axs[0].set_ylabel('Angle of twist [rad]')
 axs[1].plot(y, Theta_2, 'tab:orange')
-axs[1].set_title('Twist distribution at angle of attack at 0 deg [m] and load factor 2.5')
+axs[1].set_title('Twist distribution at load factor 2.5')
 axs[1].set_xlabel('Spanwise location [m]')
-axs[1].set_ylabel('Angle of twist')
+axs[1].set_ylabel('Angle of twist [rad]')
 axs[2].plot(y, Theta_minus_1, 'tab:green')
-axs[2].set_title('Twist distribution at angle of attack at 0 deg [m] and load factor -1')
+axs[2].set_title('Twist distribution at load factor -1')
 axs[2].set_xlabel('Spanwise location [m]')
-axs[2].set_ylabel('Angle of twist')
+axs[2].set_ylabel('Angle of twist [rad]')
 fig.tight_layout()
 plt.show()
 #plt.plot(y, Theta)
@@ -110,12 +110,12 @@ for i in range(0,100):
 #print(len(slope))
 #print(slope)
 
-plt.plot(y,slope)
-plt.title('slope distribution')
-plt.xlabel('Span position')
-plt.ylabel('slope of the wing')
+#plt.plot(y,slope)
+#plt.title('slope distribution')
+#plt.xlabel('Span position')
+#plt.ylabel('slope of the wing')
 
-plt.show()
+#plt.show()
 
 # deflection calculations
 deflection = np.ones(100)
@@ -141,7 +141,7 @@ for i in range(0,100):
 fig, axs = plt.subplots(3)
 # first plot: deflection at aoa 0
 axs[0].plot(y, deflection)
-axs[0].set_title('Deflection at angle of attack at 0 deg [m] and load factor 1')
+axs[0].set_title('Deflection at load factor 1')
 axs[0].set_xlabel('Spanwise location [m]')
 axs[0].set_ylabel('Deflection [m]')
 # plot of deflection at load factor 2.5
@@ -172,11 +172,11 @@ print('The max deflection is', max(Deflections, key=abs),'. This is for load fac
 #normal:
 ymax = y_c
 normal = M_2 * ymax/I_x
-print("The maximum normal stress at load factor 2.5 is : ", max(normal))
+print("The maximum normal stress at load factor 2.5 is : ", max(normal, key=abs))
 normal_10 = M_minus_1 *ymax/I_x
-print("The maximum normal stress at load factor -1 is: ", max(normal_10))
+print("The maximum normal stress at load factor -1 is: ", max(normal_10, key=abs))
 normal_1 = M_x *ymax/I_x
-print("The maximum normal stress at load factor 1 is: ", max(normal_1))
+print("The maximum normal stress at load factor 1 is: ", max(normal_1, key=abs))
 
 fig, axs = plt.subplots(3)
 # first plot: deflection at aoa 0
@@ -198,13 +198,13 @@ plt.show()
 
 
 #shear due to torque:
-sheart = engine_torque/(2*localt*area)
+#sheart = engine_torque/(2*localt*area)
 
-from inertial_loads import inertial_shear
+#from inertial_loads import inertial_shear
 #shear due to shear:
-v = inertial_shear + aero_shear0
-shears = v*Q/(localt*I_x)
+#v = inertial_shear + aero_shear0
+#shears = v*Q/(localt*I_x)
 
-shear = shears + sheart
-print("The maximum shear stress is: ", max(shear))
+#shear = shears + sheart
+#print("The maximum shear stress is: ", max(shear))
 
