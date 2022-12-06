@@ -45,6 +45,7 @@ n = f(y)
 
 L = 0.02
 y_wingboxstringers = []
+
 for i in points:
     y_chord = 0.5 * chord(rootchord, labda, halfspan, i)
     stringer_num = y_chord / L
@@ -56,7 +57,9 @@ print(y_wingboxstringers)
 # print("localt", localt)
 h = 0.5 * localchord
 a = 0.048 * localchord
+
 b = 0.0764 * localchord
+
 c = h / (tan(radians(theta1)))
 x_c = h / 3 * ((2 * a + b) / (a + b))
 # print("x_c" ,x_c)
