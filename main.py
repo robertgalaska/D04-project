@@ -83,3 +83,5 @@ combine_shearloads(aero_shear_CLd_min, aero_shear_CLd_25, inertial_shear)
 combine_bendingmoment(aero_moment_CLd_min, aero_moment_CLd_25, engine_bending, inertial_moment)
 combine_torque(engine_torque, aero_torque_CLd_min, aero_torque_CLd_25)
 
+shearneg = np.add(aero_shear_CLd_min, inertial_shear)
+shearpos = np.add(aero_shear_CLd_25, inertial_shear)
