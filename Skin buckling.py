@@ -1,5 +1,5 @@
 from math import pi
-from centroid import localchord, localt,h, y, halfspan
+from centroid import localchord, localt,h, y, halfspan, n
 from deflecftion import E, normal
 from matplotlib import pyplot as plt
 import scipy as sp
@@ -7,13 +7,12 @@ from scipy import interpolate
 import numpy as np
 
 points = [0, 3, 6 ,9 ,12, 15]
-nofribs = [7, 6, 5, 4, 3, 1]
+nofribs = [20, 18, 16, 14, 12, 10]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofribs, kind="previous", fill_value="extrapolate")
 ribs = f(y)
-
 a = 3/ribs
-a_b = a/h
+a_b = a/(h)
 
 points = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 1, 2]
 k_c = [18, 14, 12, 10, 8, 6 , 4.5 , 4]
@@ -29,11 +28,11 @@ print('The minimum critical stress is :', min(sigma_critical))
 
 
 margin_of_safety = sigma_critical/abs(normal)
-margin_of_safety[margin_of_safety>5e+4] = 2000
+margin_of_safety[margin_of_safety>5e+2] = 500
 #print(margin_of_safety)
 #print(normal)
 #print(sigma_critical)
-print('the minimum margin of safety is', min(margin_of_safety),'and is located at')
+print('the minimum margin of safety is', min(margin_of_safety),'and is located at', margin_of_safety.argmin())
 fig, axs = plt.subplots(2)
 axs[0].plot(y, sigma_critical)
 axs[0].set_title('critical stress for skin buckling')
@@ -45,7 +44,6 @@ axs[1].set_xlabel('Spanwise location [m]')
 axs[1].set_ylabel('applied stress [Pa]')
 fig.tight_layout()
 plt.show()
-print(sigma_critical[0])
 plt.plot(y, margin_of_safety)
 plt.title('margin of safety along the span')
 plt.xlabel('Spanwise location [m]')
