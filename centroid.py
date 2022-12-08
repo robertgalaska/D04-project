@@ -88,7 +88,11 @@ I_x_c = (h1 / 12) * (a1 ** 3 + 3 * a1 * c1 ** 2 + 3 * c1 * (
         a1 ** 2) + b1 ** 3 + c1 * b1 ** 2 + a1 * b1 ** 2 + b1 * c1 ** 2 + 2 * a1 * b1 * c1 + b1 * a1 ** 2)
 # print("I_x_c", I_x_c)
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
+I_y_s = (h**3*(a**2+4*a*b+b**2))/(36*(a+b))
+I_y_c = (h1**3*(a1**2+4*a1*b1+b1**2))/(36*(a1+b1))
 
+corr_I_x_s = (h*(4*a*b*c**2+3*a**2*b*c-3*a*b**2*c+a**4+b**4+2*a**3*b+a**2*c**2+a**3*c+2*a*b**3-c*b**3+b**2*c**2))/(36*(a+b))
+corr_I_x_c = (h1*(4*a1*b1*c1**2+3*a1**2*b1*c1-3*a1*b1**2*c1+a1**4+b1**4+2*a1**3*b1+a1**2*c1**2+a1**3*c1+2*a1*b1**3-c1*b1**3+b1**2*c1**2))/(36*(a1+b1))
 
 t = 0.005
 A = t * (2 * L - t)
@@ -97,9 +101,29 @@ A = t * (2 * L - t)
 
 
 I_s = n * A * y_c ** 2 + n * A * (a - y_c) ** 2
-
+I_s_y = n * A * x_c **2 + n * A * (h - x_c)**2
+I_y = I_y_s - I_y_c + I_s_y
 I_x = I_x_s - I_x_c + I_s
 # print("I_x", I_x)
+corr_I_x = corr_I_x_s - corr_I_x_c + I_s
+
+
+plt.subplot(131)
+plt.plot(y, I_x)
+plt.axis([0, 18.7, 0, 0.030])
+plt.xticks([0,10,18.37])
+plt.title('Moment of inertia')
+plt.xlabel('Span position[m]')
+plt.ylabel('Moment of inertia')
+
+plt.subplot(133)
+plt.plot(y, corr_I_x)
+plt.axis([0, 18.8, 0, 0.025])
+plt.xticks([0,10,18.37])
+plt.title('Moment of inertia calculated the correct way')
+plt.xlabel('Span position[m]')
+plt.ylabel('Moment of inertia')
+plt.show()
 
 
 area = ((a - localt) + (b - localt)) * (h - localt) / 2
