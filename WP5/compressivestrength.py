@@ -16,15 +16,29 @@ x_ofwing = np.array(x_coordinatewing)
 y_ofwing = np.array(y_coordinatewing)
 points = len(x_ofwing)
 
+distsumx = 0
+dist2sumx = 0
+distsumy = 0
+distsum2y = 0
+
 for i in range(points):
-    dist = x_ofwing * ( x_ofwing[i] ** 2 + y_ofwing[i]** 2) ** 0.5
-    distsum += dist
-    dist2 = ( x_ofwing[i] ** 2 + y_ofwing[i]** 2) ** 0.5
-    dist2sum += dist2
+    distx = x_ofwing * ( x_ofwing[i] ** 2 + y_ofwing[i]** 2) ** 0.5
+    distsumx += distx
+    dist2x = ( x_ofwing[i] ** 2 + y_ofwing[i]** 2) ** 0.5
+    dist2sumx += dist2x
 
-xcentroid = distsum/distsum2
+    disty = y_ofwing * (x_ofwing[i] ** 2 + y_ofwing[i] ** 2) ** 0.5
+    distsumy += distxy
+    dist2y = (x_ofwing[i] ** 2 + y_ofwing[i] ** 2) ** 0.5
+    dist2sumy += dist2y
 
-print(xcentroid)
+
+xcentroid = distsumx/distsum2x
+
+ycentroid = distsumy/distsum2y
+
+
+print(xcentroid, ycentroid)
 
 
 
