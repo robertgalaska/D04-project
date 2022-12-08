@@ -203,6 +203,7 @@ def calculate_aeroloads(lines10, rho, v, q):
         aero_moment_CLd=np.zeros(100)
         aero_torque_CLd=np.zeros(100)
         aero_drag_CLd=np.zeros(100)
+        aero_momentz_CLd=np.zeros(100)
         for i in range(len(locations0)):
             aero_shear_CLd[i]=-sp.integrate.trapezoid(lift_CLd[i:], locations0[i:])
             aero_torque_CLd[i] =  sp.integrate.trapezoid(torque_CLd[i:], locations0[i:])
@@ -210,17 +211,17 @@ def calculate_aeroloads(lines10, rho, v, q):
 
         for i in range(len(locations0)):
             aero_moment_CLd[i]=-sp.integrate.trapezoid(aero_shear_CLd[i:], locations0[i:])
+            aero_momentz_CLd[i]= -sp.integrate.trapezoid(aero_drag_CLd[i:], locations0[i:])
 
-        return aero_torque_CLd, aero_moment_CLd, aero_shear_CLd, aero_drag_CLd
+        return aero_torque_CLd, aero_moment_CLd, aero_shear_CLd, aero_drag_CLd, aero_momentz_CLd
 
-    aero_torque_CLd_1, aero_moment_CLd_1, aero_shear_CLd_1, aero_drag_CLd_1= calculate_lift(CLd_distributed_1, alpha_d_1, CMd_distributed_1, Cidd_distributed_1)
-    aero_torque_CLd_25, aero_moment_CLd_25, aero_shear_CLd_25, aero_drag_CLd_25 = calculate_lift(CLd_distributed_25, alpha_d_25, CMd_distributed_25, Cidd_distributed_25)
-    aero_torque_CLd_min, aero_moment_CLd_min, aero_shear_CLd_min, aero_drag_CLd_min = calculate_lift(CLd_distributed_min, alpha_d_min, CMd_distributed_min, Cidd_distributed_min)
+    aero_torque_CLd_1, aero_moment_CLd_1, aero_shear_CLd_1, aero_drag_CLd_1, aero_momentz_CLd_1= calculate_lift(CLd_distributed_1, alpha_d_1, CMd_distributed_1, Cidd_distributed_1)
+    aero_torque_CLd_25, aero_moment_CLd_25, aero_shear_CLd_25, aero_drag_CLd_25, aero_momentz_CLd_25 = calculate_lift(CLd_distributed_25, alpha_d_25, CMd_distributed_25, Cidd_distributed_25)
+    aero_torque_CLd_min, aero_moment_CLd_min, aero_shear_CLd_min, aero_drag_CLd_min, aero_momentz_CLd_min = calculate_lift(CLd_distributed_min, alpha_d_min, CMd_distributed_min, Cidd_distributed_min)
     
     #plt.plot(locations0, aero_shear_CLd)
     #plt.show()
     
-    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, T_aero_0, T_aero_10, CLd_distributed_1, alpha_d_1, aero_torque_CLd_1, aero_moment_CLd_1, aero_shear_CLd_1, aero_drag_CLd_1, CLd_distributed_25, alpha_d_25, aero_torque_CLd_25, aero_moment_CLd_25, aero_shear_CLd_25, aero_drag_CLd_25, CLd_distributed_min, alpha_d_min, aero_torque_CLd_min, aero_moment_CLd_min, aero_shear_CLd_min, aero_drag_CLd_min
+    return aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, T_aero_0, T_aero_0, CLd_distributed_1, alpha_d_1, aero_torque_CLd_1, aero_moment_CLd_1, aero_shear_CLd_1, aero_drag_CLd_1, CLd_distributed_25, alpha_d_25, aero_torque_CLd_25, aero_moment_CLd_25, aero_shear_CLd_25, aero_drag_CLd_25, CLd_distributed_min, alpha_d_min, aero_torque_CLd_min, aero_moment_CLd_min, aero_shear_CLd_min, aero_drag_CLd_min, aero_momentz_CLd_1, aero_momentz_CLd_25, aero_momentz_CLd_min
 
-aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, T_aero_0, T_aero_10, CLd_distributed_1, alpha_d_1, aero_torque_CLd_1, aero_moment_CLd_1, aero_shear_CLd_1, aero_drag_CLd_1, CLd_distributed_25, alpha_d_25, aero_torque_CLd_25, aero_moment_CLd_25, aero_shear_CLd_25, aero_drag_CLd_25, CLd_distributed_min, alpha_d_min, aero_torque_CLd_min, aero_moment_CLd_min, aero_shear_CLd_min, aero_drag_CLd_min = calculate_aeroloads(lines10, rho, v, q)
-
+aero_shear0, aero_shear10, aero_moment_0, aero_moment_10, ID_aero_0, ID_aero_10, T_aero_0, T_aero_10, CLd_distributed_1, alpha_d_1, aero_torque_CLd_1, aero_moment_CLd_1, aero_shear_CLd_1, aero_drag_CLd_1, CLd_distributed_25, alpha_d_25, aero_torque_CLd_25, aero_moment_CLd_25, aero_shear_CLd_25, aero_drag_CLd_25, CLd_distributed_min, alpha_d_min, aero_torque_CLd_min, aero_moment_CLd_min, aero_shear_CLd_min, aero_drag_CLd_min, aero_momentz_CLd_1, aero_momentz_CLd_25, aero_momentz_CLd_min = calculate_aeroloads(lines10, rho, v, q)

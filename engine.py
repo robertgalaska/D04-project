@@ -14,30 +14,35 @@ sweep_angle = 34.6 * 2 * math.pi / 360
 
 def engineload_takeoff(thrust_cruise, sweep_angle, x, y, z):
     engine_bending = []
+    engine_bendingz = []
     engine_torque = []
     y_wing0 = []
 
-    for i in range(101):
+    for i in range(100):
 
-        if i != 0:
+        #if i != 0:
 
-            y_wing = (36.74 / 2) * (i / 100)
-            y_wing0.append(y_wing)
+        y_wing = (36.74 / 2) * (i / 100)
+        y_wing0.append(y_wing)
 
-            if y_wing <= 6.43:
+        if y_wing <= 6.43:
 
-                x_thrust = thrust_cruise * math.cos(sweep_angle)
-                y_thrust = thrust_cruise * math.sin(sweep_angle)
-                torque_engine = x_thrust * z
-                bending_moment_engine = y_thrust * z
-                engine_torque.append(torque_engine)
-                engine_bending.append(bending_moment_engine)
+            x_thrust = thrust_cruise * math.cos(sweep_angle)
+            y_thrust = thrust_cruise * math.sin(sweep_angle)
+            torque_engine = x_thrust * z
+            bending_moment_engine = y_thrust * z
+            bending_momentz_engine = x_thrust * (6.43-y_wing)
+            engine_torque.append(torque_engine)
+            engine_bending.append(bending_moment_engine)
+            engine_bendingz.append(bending_momentz_engine)
 
-            else:
-                torque_engine = 0
-                bending_moment_engine = 0
-                engine_torque.append(torque_engine)
-                engine_bending.append(bending_moment_engine)
+        else:
+            torque_engine = 0
+            bending_moment_engine = 0
+            bending_momentz_engine = 0
+            engine_torque.append(torque_engine)
+            engine_bending.append(bending_moment_engine)
+            engine_bendingz.append(bending_momentz_engine)
 
     torque = np.array(engine_torque)
     bending = np.array(engine_bending)
@@ -57,6 +62,6 @@ def engineload_takeoff(thrust_cruise, sweep_angle, x, y, z):
     fig.tight_layout()
     plt.show()
 
-    return torque, bending
+    return torque, bending, engine_bendingz
 
-engine_torque, engine_bending = engineload_takeoff(thrust_cruise, sweep_angle, x_co_engine, y_co_engine, z_co_engine)
+engine_torque, engine_bending, engine_bendingz = engineload_takeoff(thrust_cruise, sweep_angle, x_co_engine, y_co_engine, z_co_engine)

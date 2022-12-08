@@ -71,8 +71,7 @@ y_c = (2 * a * c + a ** 2 + c * b + a * b + b ** 2) / (3 * (a + b))
 # print(x_c[0])
 # print(y_c[0])
 # moment of inertia along the x_axis of a solid trapezoid
-I_x_s = (h / 12) * (a ** 3 + 3 * a * c ** 2 + 3 * c * (
-        a ** 2) + b ** 3 + c * b ** 2 + a * b ** 2 + b * c ** 2 + 2 * a * b * c + b * a ** 2)
+#I_x_s = (h / 12) * (a ** 3 + 3 * a * c ** 2 + 3 * c * (a ** 2) + b ** 3 + c * b ** 2 + a * b ** 2 + b * c ** 2 + 2 * a * b * c + b * a ** 2)
 # print("I_x_s", I_x_s)
 # Moment of inertia of the cut-out trapezoid:
 a1 = a - (2 * localt)
@@ -84,11 +83,14 @@ c1 = h1 / (tan(radians(theta1)))
 # print("b1", b1)
 # print("h1", h1)
 # print("c1", c1)
-I_x_c = (h1 / 12) * (a1 ** 3 + 3 * a1 * c1 ** 2 + 3 * c1 * (
-        a1 ** 2) + b1 ** 3 + c1 * b1 ** 2 + a1 * b1 ** 2 + b1 * c1 ** 2 + 2 * a1 * b1 * c1 + b1 * a1 ** 2)
+#I_x_c = (h1 / 12) * (a1 ** 3 + 3 * a1 * c1 ** 2 + 3 * c1 * (a1 ** 2) + b1 ** 3 + c1 * b1 ** 2 + a1 * b1 ** 2 + b1 * c1 ** 2 + 2 * a1 * b1 * c1 + b1 * a1 ** 2)
 # print("I_x_c", I_x_c)
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
+I_y_s = (h**3*(a**2+4*a*b+b**2))/(36*(a+b))
+I_y_c = (h1**3*(a1**2+4*a1*b1+b1**2))/(36*(a1+b1))
 
+corr_I_x_s = (h*(4*a*b*c**2+3*a**2*b*c-3*a*b**2*c+a**4+b**4+2*a**3*b+a**2*c**2+a**3*c+2*a*b**3-c*b**3+b**2*c**2))/(36*(a+b))
+corr_I_x_c = (h1*(4*a1*b1*c1**2+3*a1**2*b1*c1-3*a1*b1**2*c1+a1**4+b1**4+2*a1**3*b1+a1**2*c1**2+a1**3*c1+2*a1*b1**3-c1*b1**3+b1**2*c1**2))/(36*(a1+b1))
 
 t = 0.005
 A = t * (2 * L - t)
@@ -97,9 +99,29 @@ A = t * (2 * L - t)
 
 
 I_s = n * A * y_c ** 2 + n * A * (a - y_c) ** 2
-
-I_x = I_x_s - I_x_c + I_s
+I_s_y = n * A * x_c **2 + n * A * (h - x_c)**2
+I_y = I_y_s - I_y_c
+#I_x = I_x_s - I_x_c + I_s
 # print("I_x", I_x)
+corr_I_x = corr_I_x_s - corr_I_x_c + I_s
+
+
+#plt.subplot(131)
+#plt.plot(y, I_x)
+#plt.axis([0, 18.7, 0, 0.030])
+#plt.xticks([0,10,18.37])
+#plt.title('Moment of inertia')
+#plt.xlabel('Span position[m]')
+#plt.ylabel('Moment of inertia')
+
+#plt.subplot(133)
+#plt.plot(y, corr_I_x)
+#plt.axis([0, 18.8, 0, 0.025])
+#plt.xticks([0,10,18.37])
+#plt.title('Moment of inertia calculated the correct way')
+#plt.xlabel('Span position[m]')
+#plt.ylabel('Moment of inertia')
+#plt.show()
 
 Ix_frontspar = (localt * b**3)/12 + localt*b*(y_c - b/2)**2
 Ix_rearspar = (localt * a**3)/12 + localt*a*(y_c - a/2)**2
@@ -113,7 +135,7 @@ J = 4 * area ** 2 / integral
 # print("J", J)
 
 plt.subplot(131)
-plt.plot(y, I_x)
+plt.plot(y, corr_I_x)
 plt.axis([0, 18.7, 0, 0.030])
 plt.xticks([0,10,18.37])
 plt.title('Moment of inertia')
