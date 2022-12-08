@@ -28,7 +28,7 @@ print('The minimum critical stress is :', min(sigma_critical))
 
 
 margin_of_safety = sigma_critical/(abs(normal)/(n+1))
-margin_of_safety[margin_of_safety>2e+4] = 2e+4
+margin_of_safety[margin_of_safety>5000] = 5000
 #print(margin_of_safety)
 #print(normal)
 #print(sigma_critical)
