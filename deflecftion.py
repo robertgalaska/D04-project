@@ -69,14 +69,20 @@ from centroid import halfspan
 # in order to integrate this we define a new function for scipy to integrate
 
 from inertial_loads import inertial_moment
-from engine import engine_bending
+from engine import engine_bending, engine_bendingz
 from aerodynamicLoads import aero_moment_0, aero_shear0
 from aerodynamicLoads import aero_moment_10, aero_moment_CLd_1, aero_moment_CLd_25, aero_moment_CLd_min
+from aerodynamicLoads import aero_momentz_CLd_1, aero_momentz_CLd_25, aero_momentz_CLd_min
 M_engine = engine_bending
+Mz_engine = engine_bendingz
 m_tot = inertial_moment[:100]
 M_x = M_engine + inertial_moment + aero_moment_CLd_1
 M_2 = M_engine + inertial_moment + aero_moment_CLd_25
 M_minus_1 = M_engine + inertial_moment + aero_moment_CLd_min
+M_z_1 = Mz_engine + aero_momentz_CLd_1
+M_z_25 = Mz_engine + aero_momentz_CLd_25
+M_z_min = Mz_engine + aero_momentz_CLd_min
+
 #print(M_engine[0])
 #print(aero_moment0[0])
 #print(M_0[0])

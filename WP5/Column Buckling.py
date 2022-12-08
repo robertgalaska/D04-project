@@ -30,3 +30,7 @@ def buck_str(spacing):
         buck_str[i]= (K*E*I_xx*np.pi**2)/(A*L**2)
     return buck_str
 print(buck_str(points1))
+
+#def normalstress(loadfactor):
+
+    #return
