@@ -9,6 +9,7 @@ y_coordinatewing = []
 
 for line in lines:
     coordinate = line.split("  ")
+    print(coordinate[0], coordinate[-1])
     x_coordinatewing.append(float(coordinate[0]))
     y_coordinatewing.append(float(coordinate[-1]))
 
@@ -39,6 +40,9 @@ ycentroid = distsumy/distsum2y
 
 
 print(xcentroid, ycentroid)
+
+
+#Calculating the spar
 
 
 
