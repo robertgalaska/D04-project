@@ -1,44 +1,15 @@
 # Calculating the wing skin
+from centroid import I_x_s, I_x_c, area, I_x, Ix_frontspar, Ix_rearspar
 import numpy as np
+from deflecftion import M_x, y
+a = M_x * y /(I_x_s + I_x_c)
+print(M_x * y /I_x_s)
 
-f = open("naca6409coords.txt", "r")
-lines = f.readlines()
+print( min (a ))
 
-x_coordinatewing = []
-y_coordinatewing = []
-
-for line in lines:
-    coordinate = line.split("  ")
-    x_coordinatewing.append(float(coordinate[0]))
-    y_coordinatewing.append(float(coordinate[-1]))
-
-x_ofwing = np.array(x_coordinatewing)
-y_ofwing = np.array(y_coordinatewing)
-points = len(x_ofwing)
-
-distsumx = 0
-dist2sumx = 0
-distsumy = 0
-distsum2y = 0
-
-for i in range(points):
-    distx = x_ofwing * ( x_ofwing[i] ** 2 + y_ofwing[i]** 2) ** 0.5
-    distsumx += distx
-    dist2x = ( x_ofwing[i] ** 2 + y_ofwing[i]** 2) ** 0.5
-    dist2sumx += dist2x
-
-    disty = y_ofwing * (x_ofwing[i] ** 2 + y_ofwing[i] ** 2) ** 0.5
-    distsumy += distxy
-    dist2y = (x_ofwing[i] ** 2 + y_ofwing[i] ** 2) ** 0.5
-    dist2sumy += dist2y
+print ( 0.794 * 3.14 ** 2 * 68.9 * 10 ** 9 * I_x/ ( y ** 2 * area))
 
 
-xcentroid = distsumx/distsum2x
-
-ycentroid = distsumy/distsum2y
-
-
-print(xcentroid, ycentroid)
 
 
 

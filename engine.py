@@ -31,7 +31,7 @@ def engineload_takeoff(thrust_cruise, sweep_angle, x, y, z):
             y_thrust = thrust_cruise * math.sin(sweep_angle)
             torque_engine = x_thrust * z
             bending_moment_engine = y_thrust * z
-            bending_momentz_engine = x_thrust * (6.43-y_wing)
+            bending_momentz_engine = -x_thrust * (6.43-y_wing)
             engine_torque.append(torque_engine)
             engine_bending.append(bending_moment_engine)
             engine_bendingz.append(bending_momentz_engine)
