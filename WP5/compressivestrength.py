@@ -1,5 +1,5 @@
 # Calculating the wing skin
-from centroid import I_x_s, I_x_c, area, I_x, I_s
+from centroid import I_x_s, I_x_c, area, I_x, Ix_frontspar, Ix_rearspar
 import numpy as np
 from deflecftion import M_x, y
 a = M_x * y /(I_x_s + I_x_c)
