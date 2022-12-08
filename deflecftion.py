@@ -177,7 +177,6 @@ normal_10 = M_minus_1 *ymax/corr_I_x
 print("The maximum normal stress at load factor -1 is: ", max(normal_10, key=abs))
 normal_1 = M_x *ymax/corr_I_x
 print("The maximum normal stress at load factor 1 is: ", max(normal_1, key=abs))
-print(y_c)
 fig, axs = plt.subplots(3)
 # first plot: deflection at aoa 0
 axs[0].plot(y, normal_1)
