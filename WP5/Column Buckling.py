@@ -1,4 +1,10 @@
 import numpy as np
+from deflecftion import M_x, M_2, M_minus_1, M_z_1, M_z_25, M_z_min
+from centroid import I_y, corr_I_x
+
+#Making list for moments
+Moments = [M_x, M_2, M_minus_1, M_z_1, M_z_25, M_z_min]
+
 
 #defining constants:
 width = 20      #[mm]
@@ -30,3 +36,11 @@ def buck_str(spacing):
         buck_str[i]= (K*E*I_xx*np.pi**2)/(A*L**2)
     return buck_str
 print(buck_str(points1))
+
+print(len(I_y))
+
+def normalstress(loadfactor, ixx, iyy, moments):
+
+
+    for i in range(len(ixx)):
+        print("yes")
