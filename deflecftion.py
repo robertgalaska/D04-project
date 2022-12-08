@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 E= 68.9*10**9
 G=26*10**9
-from centroid import I_x, y, J, localchord, y_c, localt, area, Q, corr_I_x
+from centroid import y, J, localchord, y_c, localt, area, Q, corr_I_x
 import scipy as sp
 from scipy import integrate
 
