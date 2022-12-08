@@ -32,12 +32,12 @@ y = np.linspace(0, halfspan, 100)
 localchord = chord(rootchord, labda, halfspan, y)
 # localt = ttoc * localchord
 
-points = [0, 2, 4, 6, 9, 12, 15]
-thickness = [0.0265, 0.024, 0.022, 0.02, 0.015, 0.01, 0.005]
+points = [0, 2, 4, 6, 9, 12,15]
+thickness = [0.0265, 0.024, 0.022, 0.02, 0.015, 0.010, 0.005]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
-points = [0, 2, 4, 6 ,9 ,12, 15]
+points = [0,2, 4, 6, 9, 12, 15]
 nofstringers = [153, 139, 126, 113, 93, 73, 53]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
@@ -101,6 +101,8 @@ I_s = n * A * y_c ** 2 + n * A * (a - y_c) ** 2
 I_x = I_x_s - I_x_c + I_s
 # print("I_x", I_x)
 
+Ix_frontspar = (localt * b**3)/12 + localt*b*(y_c - b/2)**2
+Ix_rearspar = (localt * a**3)/12 + localt*a*(y_c - a/2)**2
 
 area = ((a - localt) + (b - localt)) * (h - localt) / 2
 perimeter = (a - localt) + (b - localt) + (h - localt) * (1 / sin(radians(theta1)) + 1 / sin(radians(theta2)))
