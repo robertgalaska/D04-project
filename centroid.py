@@ -57,7 +57,6 @@ print(y_wingboxstringers)
 # print("localt", localt)
 h = 0.5 * localchord
 a = 0.048 * localchord
-
 b = 0.0764 * localchord
 
 c = h / (tan(radians(theta1)))
