@@ -32,13 +32,13 @@ y = np.linspace(0, halfspan, 100)
 localchord = chord(rootchord, labda, halfspan, y)
 # localt = ttoc * localchord
 
-points = [0, 2, 4, 6, 9, 12, 14, 16,]
-thickness = [0.022, 0.021, 0.019, 0.018, 0.017, 0.016, 0.014, 0.013]
+points = [0, 2, 4, 6, 9, 12,15]
+thickness = [0.0265, 0.024, 0.022, 0.02, 0.015, 0.010, 0.005]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
-points = [0, 2, 4, 6 ,9 ,12, 15, ]
-nofstringers = [108, 104, 98, 95, 93, 73, 53]
+points = [0,2, 4, 6, 9, 12, 15]
+nofstringers = [153, 139, 126, 113, 93, 73, 53]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
@@ -113,6 +113,8 @@ corr_I_x = corr_I_x_s - corr_I_x_c + I_s
 #plt.ylabel('Moment of inertia')
 #plt.show()
 
+Ix_frontspar = (localt * b**3)/12 + localt*b*(y_c - b/2)**2
+Ix_rearspar = (localt * a**3)/12 + localt*a*(y_c - a/2)**2
 
 area = ((a - localt) + (b - localt)) * (h - localt) / 2
 perimeter = (a - localt) + (b - localt) + (h - localt) * (1 / sin(radians(theta1)) + 1 / sin(radians(theta2)))
