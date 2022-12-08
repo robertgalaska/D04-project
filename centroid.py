@@ -37,8 +37,8 @@ thickness = [0.022, 0.021, 0.019, 0.018, 0.017, 0.016, 0.014, 0.013]
 g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
 localt = g(y)
 
-points = [0, 2, 4, 6 ,9 ,12, 15]
-nofstringers = [153, 139, 126, 113, 93, 73, 53]
+points = [0, 2, 4, 6 ,9 ,12, 15, ]
+nofstringers = [108, 104, 98, 95, 93, 73, 53]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
