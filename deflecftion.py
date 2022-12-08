@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 E= 68.9*10**9
 G=26*10**9
-from centroid import I_x, y, J, localchord, y_c, localt, area, Q
+from centroid import I_x, y, J, localchord, y_c, localt, area, Q, corr_I_x
 import scipy as sp
 from scipy import integrate
 
@@ -82,29 +82,29 @@ M_minus_1 = M_engine + inertial_moment + aero_moment_CLd_min
 #print(M_0[0])
 M_10 = M_engine + inertial_moment + aero_moment_10
 #print(M_10[0])
-def integrand_bending (M_x,E,I_x):
-    int = -M_x/(E*I_x)
+def integrand_bending (M_x,E,corr_I_x):
+    int = -M_x/(E*corr_I_x)
     return int
 
 
 slope = np.ones(100)
 for i in range(0,100):
-    M_int = integrand_bending(M_x[:i],E,I_x[:i])
+    M_int = integrand_bending(M_x[:i],E,corr_I_x[:i])
     slope[i] = sp.integrate.trapezoid(M_int, y[:i],)
 
 slope_2 = np.ones(100)
 for i in range(0,100):
-    M_int = integrand_bending(M_2[:i],E,I_x[:i])
+    M_int = integrand_bending(M_2[:i],E,corr_I_x[:i])
     slope_2[i] = sp.integrate.trapezoid(M_int, y[:i],)
 
 slope_minus_1 = np.ones(100)
 for i in range(0,100):
-    M_int = integrand_bending(M_minus_1[:i],E,I_x[:i])
+    M_int = integrand_bending(M_minus_1[:i],E,corr_I_x[:i])
     slope_minus_1[i] = sp.integrate.trapezoid(M_int, y[:i],)
 
 slope_10 = np.ones(100)
 for i in range(0,100):
-    M_int = integrand_bending(M_10[:i],E,I_x[:i])
+    M_int = integrand_bending(M_10[:i],E,corr_I_x[:i])
     slope_10[i] = sp.integrate.trapezoid(M_int, y[:i],)
 
 #print(len(slope))
@@ -177,7 +177,7 @@ normal_10 = M_minus_1 *ymax/I_x
 print("The maximum normal stress at load factor -1 is: ", max(normal_10, key=abs))
 normal_1 = M_x *ymax/I_x
 print("The maximum normal stress at load factor 1 is: ", max(normal_1, key=abs))
-
+print(y_c)
 fig, axs = plt.subplots(3)
 # first plot: deflection at aoa 0
 axs[0].plot(y, normal_1)
