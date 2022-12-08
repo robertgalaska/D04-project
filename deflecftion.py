@@ -171,11 +171,11 @@ print('The max deflection is', max(Deflections, key=abs),'. This is for load fac
 # Stress calculations:
 #normal:
 ymax = y_c
-normal = M_2 * ymax/I_x
+normal = M_2 * ymax/corr_I_x
 print("The maximum normal stress at load factor 2.5 is : ", max(normal, key=abs))
-normal_10 = M_minus_1 *ymax/I_x
+normal_10 = M_minus_1 *ymax/corr_I_x
 print("The maximum normal stress at load factor -1 is: ", max(normal_10, key=abs))
-normal_1 = M_x *ymax/I_x
+normal_1 = M_x *ymax/corr_I_x
 print("The maximum normal stress at load factor 1 is: ", max(normal_1, key=abs))
 print(y_c)
 fig, axs = plt.subplots(3)
