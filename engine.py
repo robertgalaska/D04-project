@@ -65,3 +65,4 @@ def engineload_takeoff(thrust_cruise, sweep_angle, x, y, z):
     return torque, bending, engine_bendingz
 
 engine_torque, engine_bending, engine_bendingz = engineload_takeoff(thrust_cruise, sweep_angle, x_co_engine, y_co_engine, z_co_engine)
+print(engine_bending)
