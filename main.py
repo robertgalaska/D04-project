@@ -54,7 +54,7 @@ def combine_bendingmoment(aero_moment0, aero_moment10, engine_bending, inertial_
     axs[1].set_xlabel('Spanwise location [m]')
     axs[1].set_ylabel('Moment [Nm]')
     fig.tight_layout()
-    plt.show()
+    #plt.show()
 
     return total_bending_0, total_bending_10
 
@@ -75,7 +75,7 @@ def combine_torque(engine_torque, aero_torque0, aero_torque10):
     axs[1].set_xlabel('Spanwise location [m]')
     axs[1].set_ylabel('Torque [Nm]')
     fig.tight_layout()
-    plt.show()
+    #plt.show()
 
     return total_torque0, total_torque10
 

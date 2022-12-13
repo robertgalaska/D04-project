@@ -31,22 +31,41 @@ y = np.linspace(0, halfspan, 100)
 
 localchord = chord(rootchord, labda, halfspan, y)
 # localt = ttoc * localchord
+option = float(input('Which design option do you want to analyze? (1 - high stringer low thickness, 2 - low stringer high thickness, 3 - intermediate) '))
 
-points = [0, 2, 4, 6, 9, 12,15]
-thickness = [0.0265, 0.024, 0.022, 0.02, 0.015, 0.010, 0.005]
-g = sp.interpolate.interp1d(points, thickness, kind="previous", fill_value="extrapolate")
-localt = g(y)
+if option == 1:
+    points_1 = [0, 2, 4, 6, 9, 12,15]
+    thickness = [0.0265, 0.024, 0.022, 0.02, 0.015, 0.010, 0.005]
 
-points = [0,2, 4, 6, 9, 12, 15]
-nofstringers = [153, 139, 126, 113, 93, 73, 53]
+
+    points_2 = [0,2, 4, 6, 9, 12, 15]
+    nofstringers = [153, 139, 126, 113, 93, 73, 53]
+elif option == 2:
+
+    points_1 = [0, 2, 4, 6, 8, 12, 16]
+    thickness = [0.04, 0.038, 0.035, 0.03, 0.023, 0.020, 0.01]
+
+
+    points_2 = [0, 3, 10, 15]
+    nofstringers = [4, 3, 2, 1]
+elif option == 3:
+    points_1 = [0, 2, 4, 6, 9, 12, 14, 16]
+    thickness = [0.022, 0.021, 0.019, 0.018, 0.017, 0.016, 0.014, 0.013]
+
+    points_2 = [0, 2, 4, 6, 9, 12, 15]
+    nofstringers = [108, 104, 98, 95, 93, 73, 53]
+
+
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
-f = sp.interpolate.interp1d(points, nofstringers, kind="previous", fill_value="extrapolate")
+g = sp.interpolate.interp1d(points_1, thickness, kind="previous", fill_value="extrapolate")
+localt = g(y)
+f = sp.interpolate.interp1d(points_2, nofstringers, kind="previous", fill_value="extrapolate")
 n = f(y)
 
 L = 0.02
 y_wingboxstringers = []
 
-for i in points:
+for i in points_2:
     y_chord = 0.5 * chord(rootchord, labda, halfspan, i)
     stringer_num = y_chord / L
     y_wingboxstringers.append(stringer_num)
