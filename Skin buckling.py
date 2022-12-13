@@ -1,5 +1,5 @@
 from math import pi
-from centroid import localchord, localt,h, y, halfspan, n, A
+from centroid import localt,h, y, n, A
 from deflecftion import E, normal
 from matplotlib import pyplot as plt
 import scipy as sp
@@ -7,7 +7,7 @@ from scipy import interpolate
 import numpy as np
 
 points = [0, 3, 6, 9, 12, 15]
-nofribs = [4, 3, 1, 1, 1, 1]
+nofribs = [3, 2, 1, 1, 1, 1]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
 f = sp.interpolate.interp1d(points, nofribs, kind="previous", fill_value="extrapolate")
 ribs = f(y)
@@ -28,6 +28,7 @@ print('The minimum critical stress is :', min(sigma_critical))
 
 area = n * A + localt * h
 margin_of_safety = sigma_critical/((abs(normal)/(area))*(h/(n+1)*localt))
+#margin_of_safety = sigma_critical/(abs(normal))
 margin_of_safety[margin_of_safety>5000] = 5000
 #print(margin_of_safety)
 #print(normal)
