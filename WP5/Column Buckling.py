@@ -41,6 +41,7 @@ def buck_str(spacing):
     for i in range(1, len(buck_str)):
         L=spacing[i]-spacing[i-1]
         buck_str[i]= (K*E*I_xx*np.pi**2)/(A*L**2)
+    buck_str= buck_str[1:]
     return buck_str
 
 def normalstress(ixx, iyy, moments):
@@ -96,7 +97,7 @@ minstress, maxstress = normalstress(corr_I_x, I_y, moment_1)
 print(maxstress)
 print(minstress)
 
-
+print(buck_str(points1))
 
 
 
