@@ -16,37 +16,67 @@ stressfrontspar = c * pi ** 2 * e * Ix_frontspar/ (l ** 2  *  areafrontspar)
 stressrearspar = c * pi ** 2 * e * Ix_rearspar/ (l ** 2  * arearearspar )
 stressstringer = c * pi ** 2 * e * I_s/ (l ** 2  * areastringer )
 
-plt.subplot(311)
-plt.plot(y, stressstringer)
-plt.axis([0, 18.8, 0, max(stressstringer)])
-plt.xticks([0,10,18.37])
-plt.title('stress stringer')
-plt.xlabel('..')
-plt.ylabel('..')
+stress_max = 68900000 # in [Pa]
+mos_rearspar = stress_max / stressrearspar
+mos_frontspar = stress_max / stressfrontspar
+mos_stringer = stress_max / stressstringer
 
-plt.subplot(312)
-plt.plot(y, stressfrontspar)
-plt.axis([0, 18.8, 0, max(stressfrontspar)])
-plt.xticks([0,10,18.37])
-plt.title('stress frontspar')
-plt.xlabel('..')
-plt.ylabel('..')
+fig, axs = plt.subplots(3)
 
-plt.subplot(313)
-plt.plot(y, stressrearspar)
-plt.axis([0, 18.8, 0, max(stressrearspar)])
-plt.xticks([0,10,18.37])
-plt.title('stress rearspar')
-plt.xlabel('..')
-plt.ylabel('..')
+axs[0].plot(y, stressrearspar)
+axs[0].set_title('Compressive stress in the rearspar')
+axs[0].set_xlabel('Spanwise location [m]')
+axs[0].set_ylabel('Stress [Pa]')
+
+axs[1].plot(y, stressfrontspar, 'tab:orange')
+axs[1].set_title('Compressive stress in the frontspar')
+axs[1].set_xlabel('Spanwise location [m]')
+axs[1].set_ylabel('Stress [Pa]')
+fig.tight_layout()
+
+axs[2].plot(y, stressstringer, 'tab:green')
+axs[2].set_title('Compressive stress in the stringer')
+axs[2].set_xlabel('Spanwise location [m]')
+axs[2].set_ylabel('Stress [Pa]')
+fig.tight_layout()
 
 plt.show()
+
+#plot for margin of safety
+fig, axs = plt.subplots(3)
+
+axs[0].plot(y, mos_rearspar)
+axs[0].set_title('Margin of safety for the rearspan')
+axs[0].set_xlabel('Spanwise location [m]')
+axs[0].set_ylabel('Margin of safety [-]')
+
+axs[1].plot(y, mos_frontspar, 'tab:orange')
+axs[1].set_title('Margin of safety for the frontspar')
+axs[1].set_xlabel('Spanwise location [m]')
+axs[1].set_ylabel('Margin of safety [-]')
+fig.tight_layout()
+
+axs[2].plot(y, mos_stringer, 'tab:green')
+axs[2].set_title('Margin of safety for the stringer')
+axs[2].set_xlabel('Spanwise location [m]')
+axs[2].set_ylabel('Margin of safety [-]')
+fig.tight_layout()
+
+plt.show()
+
 
 
 print('min stress front spar is ', min(stressfrontspar))
 print('min stress rear spar is ',min(stressrearspar))
 print('min stress stringer is ',min(stressstringer))
 
+print('max stress front spar is ', max(stressfrontspar))
+print('max stress rear spar is ',max(stressrearspar))
+print('max stress stringer is ',max(stressstringer))
+
+print('Minimum factor of safety for front spar is', min(mos_frontspar))
+print('Minimum factor of safety for rear spar is', min(mos_rearspar))
+print('Minimum factor of safety for stringer is', min(mos_stringer))
 
 
 
