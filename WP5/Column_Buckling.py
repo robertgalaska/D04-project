@@ -87,6 +87,20 @@ def normalstress(ixx, iyy, moments):
         stress_maxwing.append(local_stress[high])
         stress_minwing.append(local_stress[low])
 
+        fig, axs = plt.subplots(2)
+        # first plot: torque
+        axs[0].plot(locations0, moments[0])
+        axs[0].set_title('Moment X [Nm]')
+        axs[0].set_xlabel('Spanwise location [m]')
+        axs[0].set_ylabel('Moment [kNm]')
+        # second plot: bending moment
+        axs[1].plot(locations0, moments[0], 'tab:orange')
+        axs[1].set_title('Moment Z [Nm]')
+        axs[1].set_xlabel('Spanwise location [m]')
+        axs[1].set_ylabel('Moment [kNm]')
+        fig.tight_layout()
+        plt.show()
+
     return stress_minwing, stress_maxwing,
 
 minstress, maxstress, = normalstress(corr_I_x, I_y, moment_1)
@@ -110,6 +124,7 @@ def buck_str(spacing):
                     location_tb.append(locations0[j])
                     print(minstress[j][0],'at', locations0[j], 'is too large by a factor of', abs(minstress[j][0])/buck_str[i])
     buck_str= buck_str[1:]
+
     return buck_str, too_big, location_tb
 buck_stress1, too_big1, location_tb1 = buck_str(points)
 #print(too_big, 'are too large')
