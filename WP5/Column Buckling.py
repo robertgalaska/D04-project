@@ -1,7 +1,9 @@
 import numpy as np
 from deflecftion import M_x, M_2, M_minus_1, M_z_1, M_z_25, M_z_min
-from centroid import I_y, corr_I_x, chord
+from centroid import I_y, corr_I_x, chord, option
 from math import tan, pi, radians, sin, cos
+from aerodynamicLoads import locations0
+import matplotlib as plt
 
 #Defining different moments
 moment_1 = [M_x,M_z_1]
@@ -21,9 +23,12 @@ labda = 0.2
 theta1 = 88.06
 
 #Locations of ribs:
-points1= [0, 2, 4, 6, 9, 12, 15, halfspan]
-points2= [0, 2, 4, 6, 8, 12, 16, halfspan]
-points3= [0, 2, 4, 6, 9, 12, 16, halfspan]
+if option == 1:
+    points= [0, 2, 4, 6, 9, 12, 15, halfspan]
+elif option == 2:
+    points= [0, 2, 4, 6, 8, 12, 16, halfspan]
+elif option == 3:
+    points= [0, 2, 4, 6, 9, 12, 16, halfspan]
 
 #determining the centroid of the stringer:
 A= (t*width+t*(width-t))*10**(-6)     #[m^2]
@@ -35,23 +40,14 @@ I_xx= (width*(t**3)/12+ t*width*(y_bar-t/2)**2 + t*((width-t)**3)/12 + t*(width-
 I_yy= I_xx          #[m]
 print('I_xx is', I_xx, 'm^4')
 
-#Buckling stress equation:
-def buck_str(spacing):
-    buck_str= np.zeros(len(spacing))
-    for i in range(1, len(buck_str)):
-        L=spacing[i]-spacing[i-1]
-        buck_str[i]= (K*E*I_xx*np.pi**2)/(A*L**2)
-    buck_str= buck_str[1:]
-    return buck_str
-
 def normalstress(ixx, iyy, moments):
 
     stress_minwing = []
     stress_maxwing = []
 
-    for i in range(10):
+    for i in range(100):
 
-        y_wing = (36.74 / 2) * (i / 100)
+        y_wing = locations0[i]
         localchord = chord(rootchord, labda, halfspan, y_wing)
 
         #dimensions of cross-section
@@ -97,8 +93,27 @@ minstress, maxstress = normalstress(corr_I_x, I_y, moment_1)
 print(maxstress)
 print(minstress)
 
-print(buck_str(points1))
+#print(buck_str(points1))
 
+#Buckling stress equation:
+def buck_str(spacing):
+    too_big=[]
+    location_tb=[]
+    buck_str= np.zeros(len(spacing))
+    for i in range(1, len(buck_str)):
+        L=spacing[i]-spacing[i-1]
+        buck_str[i]= (K*E*I_xx*np.pi**2)/(A*L**2)
+        for j in range(len(locations0)):
+            if locations0[j]<=spacing[i] and locations0[j]>spacing[i-1]:
+                if abs(float(minstress[j][0]))>=buck_str[i]:
+                    too_big.append(minstress[j][0])
+                    location_tb.append(locations0[j])
+                    print(minstress[j][0],'at', locations0[j], 'is too large by a factor of', abs(minstress[j][0])/buck_str[i])
+    buck_str= buck_str[1:]
+    return buck_str, too_big, location_tb
+buck_stress1, too_big1, location_tb1 = buck_str(points)
+#print(too_big, 'are too large')
+#print('at', location_tb)
 
 
 
