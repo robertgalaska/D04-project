@@ -11,7 +11,7 @@ b = a[:,:1]
 max_stress = np.ones(100)
 for i in range(100):
     max_stress[i] = (b[i])
-
+print(max_stress)
 
 
 
