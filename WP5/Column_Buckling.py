@@ -94,7 +94,7 @@ def normalstress(ixx, iyy, moments):
     axs[0].set_xlabel('Spanwise location [m]')
     axs[0].set_ylabel('Moment [kNm]')
     # second plot: bending moment
-    axs[1].plot(locations0, moments[0], 'tab:orange')
+    axs[1].plot(locations0, moments[1], 'tab:orange')
     axs[1].set_title('Moment Z [Nm]')
     axs[1].set_xlabel('Spanwise location [m]')
     axs[1].set_ylabel('Moment [kNm]')
