@@ -3,7 +3,7 @@ from deflecftion import M_x, M_2, M_minus_1, M_z_1, M_z_25, M_z_min
 from centroid import I_y, corr_I_x, chord, option
 from math import tan, pi, radians, sin, cos
 from aerodynamicLoads import locations0
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 #Defining different moments
 moment_1 = [M_x,M_z_1]
@@ -87,19 +87,19 @@ def normalstress(ixx, iyy, moments):
         stress_maxwing.append(local_stress[high])
         stress_minwing.append(local_stress[low])
 
-        fig, axs = plt.subplots(2)
-        # first plot: torque
-        axs[0].plot(locations0, moments[0])
-        axs[0].set_title('Moment X [Nm]')
-        axs[0].set_xlabel('Spanwise location [m]')
-        axs[0].set_ylabel('Moment [kNm]')
-        # second plot: bending moment
-        axs[1].plot(locations0, moments[0], 'tab:orange')
-        axs[1].set_title('Moment Z [Nm]')
-        axs[1].set_xlabel('Spanwise location [m]')
-        axs[1].set_ylabel('Moment [kNm]')
-        fig.tight_layout()
-        plt.show()
+    fig, axs = plt.subplots(2)
+    # first plot: torque
+    axs[0].plot(locations0, moments[0])
+    axs[0].set_title('Moment X [Nm]')
+    axs[0].set_xlabel('Spanwise location [m]')
+    axs[0].set_ylabel('Moment [kNm]')
+    # second plot: bending moment
+    axs[1].plot(locations0, moments[0], 'tab:orange')
+    axs[1].set_title('Moment Z [Nm]')
+    axs[1].set_xlabel('Spanwise location [m]')
+    axs[1].set_ylabel('Moment [kNm]')
+    fig.tight_layout()
+    plt.show()
 
     return stress_minwing, stress_maxwing,
 
