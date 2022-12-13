@@ -70,7 +70,7 @@ def normalstress(ixx, iyy, moments):
         x_right = -h+x_c
         z_left = b/2        #note that this value is positive or negative because of a symmetrical plane
         z_right = a/2       #note that this value is positive or negative because of a symmetrical plane
-        crit_points = [[x_left, z_left],[x_right, z_right], [x_right, -z_right], [x_left, -z_left]  ]
+        crit_points = [[x_left, z_left],[x_right, z_right], [x_right, -z_right], [x_left, -z_left]]
 
         local_stress = []
         stresses = []
@@ -94,6 +94,7 @@ def normalstress(ixx, iyy, moments):
 
     return stress_minwing, stress_maxwing
 
+print(moment_1)
 print(normalstress(corr_I_x, I_y, moment_1))
 
 
