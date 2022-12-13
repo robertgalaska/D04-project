@@ -43,9 +43,9 @@ plt.ylabel('..')
 plt.show()
 
 
-#print(stressfrontspar)
-#print(stressrearspar)
-#print(stressstringer)
+print('min stress front spar is ', min(stressfrontspar))
+print('min stress rear spar is ',min(stressrearspar))
+print('min stress stringer is ',min(stressstringer))
 
 
 
