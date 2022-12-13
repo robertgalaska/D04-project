@@ -49,7 +49,7 @@ def normalstress(ixx, iyy, moments):
     stress_minwing = []
     stress_maxwing = []
 
-    for i in range(10):
+    for i in range(100):
 
         y_wing = (36.74 / 2) * (i / 100)
         localchord = chord(rootchord, labda, halfspan, y_wing)
@@ -91,9 +91,9 @@ def normalstress(ixx, iyy, moments):
         stress_maxwing.append(local_stress[high])
         stress_minwing.append(local_stress[low])
 
-    return stress_minwing, stress_maxwing
+    return stress_minwing, stress_maxwing,
 
-minstress, maxstress = normalstress(corr_I_x, I_y, moment_1)
+minstress, maxstress, = normalstress(corr_I_x, I_y, moment_1)
 print(maxstress)
 print(minstress)
 
