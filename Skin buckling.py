@@ -6,6 +6,10 @@ import scipy as sp
 from scipy import interpolate
 import numpy as np
 
+
+
+
+
 points = [0, 3, 6, 9, 12, 15]
 nofribs = [3, 2, 1, 1, 1, 1]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
@@ -49,4 +53,9 @@ plt.plot(y, margin_of_safety)
 plt.title('margin of safety along the span')
 plt.xlabel('Spanwise location [m]')
 plt.ylabel('margin of safety')
+plt.show()
+plt.plot(y, normal)
+plt.title('Normal stress along the span')
+plt.xlabel('Spanwise location [m]')
+plt.ylabel('Applied stress [Pa]')
 plt.show()
