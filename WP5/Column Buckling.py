@@ -50,7 +50,7 @@ def normalstress(ixx, iyy, moments):
     stress_minwing = []
     stress_maxwing = []
 
-    for i in range(1):
+    for i in range(10):
 
         y_wing = (36.74 / 2) * (i / 100)
         localchord = chord(rootchord, labda, halfspan, y_wing)
@@ -75,17 +75,17 @@ def normalstress(ixx, iyy, moments):
         local_stress = []
         stresses = []
         #calculating the bending stress
-        for i in range(4):
-            x = crit_points[i][0]
-            z = crit_points[i][1]
+        for j in range(4):
+            x = crit_points[j][0]
+            z = crit_points[j][1]
 
-            stress = (moments[0]*z)/corr_I_x + (moments[1]*x)/I_y       #moment is numpy array, mistake
+            #print(moments[0][i], x, z, corr_I_x[i])
+            stress = (moments[0][i]*z)/corr_I_x[i] + (moments[1][i]*x)/I_y[i]       #moment is numpy array, mistake
 
             info_stress = [stress, x, z]
             stresses.append(stress)
             local_stress.append(info_stress)
 
-        print(type(stresses))
         high = stresses.index(max(stresses))
         low = stresses.index(min(stresses))
 
@@ -94,8 +94,7 @@ def normalstress(ixx, iyy, moments):
 
     return stress_minwing, stress_maxwing
 
-print(moment_1)
-print(normalstress(corr_I_x, I_y, moment_1))
+minstress, maxstress = normalstress(corr_I_x, I_y, moment_1)
 
 
 
