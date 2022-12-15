@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from aerodynamicLoads import locations0
 
 
 def calculate_inertialloads():
@@ -15,7 +16,7 @@ def calculate_inertialloads():
 
     for i in range(100):
 
-        y_wing = (36.74 / 2) * (i / 100)
+        y_wing = locations0[i]
         y_wing0.append(y_wing)
 
         total_weight = 9.65 * y_wing ** 2 - 445.77 * y_wing + 5147.3
