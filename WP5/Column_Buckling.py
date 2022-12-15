@@ -117,7 +117,8 @@ for i in range(len(maxstress)):
     tension.append(maxstress[i][0])
     compression.append(minstress[i][0])
 
-
+tension = np.array(tension)
+compression = np.array(compression)
 
 print(maxstress)
 print(minstress)
