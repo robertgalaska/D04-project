@@ -8,6 +8,8 @@ print(stressstringer, stressfrontspar, stressrearspar)
 
 def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
 
+    plt.xlabel("Location along halfspan[m]")
+    plt.ylabel("Stress [Pa]")
     plt.plot(locations0, tension, label = "Cross-sectional tension", color="g")
     plt.plot(locations0, stressstringer, label="Stringer tension", color="r")
     plt.plot(locations0, stressfrontspar, label = "Front spar tension", color="c")
@@ -19,6 +21,8 @@ def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
 
 def compressiongraph(compression, stressrearspar, stressfrontspar, stressstringer):
 
+    plt.xlabel("Location along halfspan[m]")
+    plt.ylabel("Stress [Pa]")
     plt.plot(locations0, compression, label = "Cross-sectional compression", color="g")
     plt.plot(locations0, stressstringer*-1, label="Stringer compression", color="r")
     plt.plot(locations0, stressfrontspar*-1, label = "Front spar compression", color="c")
