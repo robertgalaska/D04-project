@@ -15,7 +15,7 @@ moment_min = [M_minus_1,M_z_min]
 #defining constants:
 width = 20      #[mm]
 t=5             #[mm]
-K=1/4           #[mm]
+K=1           #[mm]
 E= 69 *10**9    #[Pa]
 halfspan = 18.37     #[m]
 alpha = 10
@@ -64,8 +64,8 @@ def normalstress(ixx, iyy, moments):
         y_c = (2 * a * c + a ** 2 + c * b + a * b + b ** 2) / (3 * (a + b))
 
         #finding the critical points
-        x_left = x_c
-        x_right = -h+x_c
+        x_left = -x_c
+        x_right = h-x_c
         z_left = b/2        #note that this value is positive or negative because of a symmetrical plane
         z_right = a/2       #note that this value is positive or negative because of a symmetrical plane
         crit_points = [[x_left, z_left],[x_right, z_right], [x_right, -z_right], [x_left, -z_left]]
