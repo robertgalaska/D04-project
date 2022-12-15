@@ -4,7 +4,7 @@ from centroid import I_y, corr_I_x, chord, option
 from math import tan, pi, radians, sin, cos
 from aerodynamicLoads import locations0
 import matplotlib.pyplot as plt
-from compressivestrength import stressrearspar, stressfrontspar, stressstringer
+#from compressivestrength import stressrearspar, stressfrontspar, stressstringer
 
 
 #Defining different moments
@@ -26,7 +26,7 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,0.3,0.6, 0.9, 1.2, 1.5, 1.8, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, halfspan]
+    points= [0,0.3,0.6, 0.9, 1.2, 1.5, 1.8, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16, 16.5, 17, 17.5, 18, halfspan]
 elif option == 2:
     points= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, halfspan]
 elif option == 3:
