@@ -131,8 +131,10 @@ I_s = n * A * y_c ** 2 + n * A * (a - y_c) ** 2
 I_s_y = n * A * x_c **2 + n * A * (h - x_c)**2
 I_y = I_y_s - I_y_c + I_y_str
 
-I_xx_s= (L*(t**3)/12+ t*L*(y_bar-t/2)**2 + t*((L-t)**3)/12 + t*(L-t)*(y_bar-(t+(L-t)/2))**2)
-
+I_xx_s1 = (L*(t**3)/12+ t*L*(y_bar-t/2)**2 + t*((L-t)**3)/12 + t*(L-t)*(y_bar-(t+(L-t)/2))**2)
+I_xx_s = np.zeros(100)
+for i in range(100):
+    I_xx_s[i] = I_xx_s1
 corr_I_x = corr_I_x_s - corr_I_x_c + I_s
 
 

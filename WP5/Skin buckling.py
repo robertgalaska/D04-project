@@ -5,22 +5,23 @@ from matplotlib import pyplot as plt
 import scipy as sp
 from scipy import interpolate
 import numpy as np
-from Column_Buckling import maxstress
+from Column_Buckling import maxstress, points
 a = np.array(maxstress)
 b = a[:,:1]
 max_stress = np.ones(100)
 for i in range(100):
     max_stress[i] = (b[i])
 print(max_stress)
+points_r = points
+for i in range(1, len(points_r)):
+    L = points_r[i] - points_r[i - 1]
 
-
-
-points = [0, 3, 6, 9, 12, 15]
-nofribs = [3, 2, 1, 1, 1, 1]
+#points = [0, 3, 6, 9, 12, 15]
+#nofribs = [3, 2, 1, 1, 1, 1]
 # nofstringers = [75, 62, 50, 40, 30, 25, 20]
-f = sp.interpolate.interp1d(points, nofribs, kind="previous", fill_value="extrapolate")
-ribs = f(y)
-a = 3/ribs
+#f = sp.interpolate.interp1d(points, nofribs, kind="previous", fill_value="extrapolate")
+#ribs = f(y)
+a = L
 a_b = a/(h/(n+1))
 
 points = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 1, 2]
