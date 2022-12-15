@@ -1,9 +1,13 @@
 import numpy as np
 from deflecftion import M_x, M_2, M_minus_1, M_z_1, M_z_25, M_z_min
-from centroid import I_y, corr_I_x, chord, option
+from centroid import I_y, corr_I_x, chord, option, y
 from math import tan, pi, radians, sin, cos
 from aerodynamicLoads import locations0
 import matplotlib.pyplot as plt
+import scipy as sp
+from scipy import interpolate
+#from compressivestrength import stressrearspar, stressfrontspar, stressstringer
+
 
 #Defining different moments
 moment_1 = [M_x,M_z_1]
@@ -13,7 +17,7 @@ moment_min = [M_minus_1,M_z_min]
 #defining constants:
 width = 20      #[mm]
 t=5             #[mm]
-K=1/4           #[mm]
+K=1           #[mm]
 E= 69 *10**9    #[Pa]
 halfspan = 18.37     #[m]
 alpha = 10
@@ -24,11 +28,14 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0, 2, 4, 6, 9, 12, 15, halfspan]
+    points= [0,0.5,1,  1.5, 1.8, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16, 16.5, 17, 17.5, 18, halfspan]
 elif option == 2:
-    points= [0, 2, 4, 6, 8, 12, 16, halfspan]
+    points= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, halfspan]
 elif option == 3:
-    points= [0, 2, 4, 6, 9, 12, 16, halfspan]
+    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,halfspan]
+    #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
+
+
 
 #determining the centroid of the stringer:
 A= (t*width+t*(width-t))*10**(-6)     #[m^2]
@@ -61,21 +68,23 @@ def normalstress(ixx, iyy, moments):
         y_c = (2 * a * c + a ** 2 + c * b + a * b + b ** 2) / (3 * (a + b))
 
         #finding the critical points
-        x_left = x_c
-        x_right = -h+x_c
+        x_left = -x_c
+        x_right = h-x_c
         z_left = b/2        #note that this value is positive or negative because of a symmetrical plane
         z_right = a/2       #note that this value is positive or negative because of a symmetrical plane
         crit_points = [[x_left, z_left],[x_right, z_right], [x_right, -z_right], [x_left, -z_left]]
 
         local_stress = []
         stresses = []
+        tension = []
+
         #calculating the bending stress
         for j in range(4):
             x = crit_points[j][0]
             z = crit_points[j][1]
 
             #print(moments[0][i], x, z, corr_I_x[i])
-            stress = (moments[0][i]*z)/corr_I_x[i] + (moments[1][i]*x)/I_y[i]       #moment is numpy array, mistake
+            stress = (moments[0][i]*z)/corr_I_x[i] + (moments[1][j]*x)/I_y[i]       #moment is numpy array, mistake
 
             info_stress = [stress, x, z]
             stresses.append(stress)
@@ -103,9 +112,20 @@ def normalstress(ixx, iyy, moments):
 
     return stress_minwing, stress_maxwing
 
-minstress, maxstress, = normalstress(corr_I_x, I_y, moment_1)
+minstress, maxstress = normalstress(corr_I_x, I_y, moment_1)
+
+
+tension = []
+compression = []
+for i in range(len(maxstress)):
+    tension.append(maxstress[i][0])
+    compression.append(minstress[i][0])
+
+
+
 print(maxstress)
 print(minstress)
+print(min(tension))
 
 #print(buck_str(points1))
 
@@ -117,7 +137,9 @@ def buck_str(spacing):
     for i in range(1, len(buck_str)):
         L=spacing[i]-spacing[i-1]
         buck_str[i]= (K*E*I_xx*np.pi**2)/(A*L**2)
+
         for j in range(len(locations0)):
+
             if locations0[j]<=spacing[i] and locations0[j]>spacing[i-1]:
                 if abs(float(minstress[j][0]))>=buck_str[i]:
                     too_big.append(minstress[j][0])
@@ -126,11 +148,19 @@ def buck_str(spacing):
     buck_str= buck_str[1:]
 
     return buck_str, too_big, location_tb
+
+
 buck_stress1, too_big1, location_tb1 = buck_str(points)
+g = sp.interpolate.interp1d(points, buck_stress1, kind="previous", fill_value="extrapolate")
+buck_stress = g(y)
 #print(too_big, 'are too large')
 #print('at', location_tb)
 
-
-
+Margin = buck_stress/np.array(tension)
+plt.plot(locations0, Margin )
+plt.title('Margin of safety for column buckling along the span')
+plt.xlabel('Spanwise location [m]')
+plt.ylabel('Margin of safety [Pa]')
+plt.show()
 
 
