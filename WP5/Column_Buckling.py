@@ -80,7 +80,7 @@ def normalstress(ixx, iyy, moments):
             z = crit_points[j][1]
 
             #print(moments[0][i], x, z, corr_I_x[i])
-            stress = (moments[0][i]*z)/corr_I_x[i] + (moments[1][i]*x)/I_y[i]       #moment is numpy array, mistake
+            stress = (moments[0][i]*z)/corr_I_x[i] + (moments[1][j]*x)/I_y[i]       #moment is numpy array, mistake
 
             info_stress = [stress, x, z]
             stresses.append(stress)

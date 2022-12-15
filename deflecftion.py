@@ -199,7 +199,7 @@ axs[2].set_title('normal stress at load factor -1')
 axs[2].set_xlabel('Spanwise location [m]')
 axs[2].set_ylabel('Stress [Pa]')
 fig.tight_layout()
-plt.show()
+#plt.show()
 
 
 #shear due to torque:
