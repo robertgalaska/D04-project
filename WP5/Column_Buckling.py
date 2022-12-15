@@ -4,6 +4,8 @@ from centroid import I_y, corr_I_x, chord, option, y
 from math import tan, pi, radians, sin, cos
 from aerodynamicLoads import locations0
 import matplotlib.pyplot as plt
+import scipy as sp
+from scipy import interpolate
 #from compressivestrength import stressrearspar, stressfrontspar, stressstringer
 
 
@@ -154,6 +156,11 @@ buck_stress = g(y)
 #print(too_big, 'are too large')
 #print('at', location_tb)
 
-
+Margin = buck_stress/np.array(tension)
+plt.plot(locations0, Margin )
+plt.title('Margin of safety for column buckling along the span')
+plt.xlabel('Spanwise location [m]')
+plt.ylabel('Margin of safety [Pa]')
+plt.show()
 
 
