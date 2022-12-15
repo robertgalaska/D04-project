@@ -163,6 +163,11 @@ plt.show()
 #print(too_big, 'are too large')
 #print('at', location_tb)
 
-
+Margin = buck_stress/np.array(tension)
+plt.plot(locations0, Margin )
+plt.title('Margin of safety for column buckling along the span')
+plt.xlabel('Spanwise location [m]')
+plt.ylabel('Margin of safety [Pa]')
+plt.show()
 
 
