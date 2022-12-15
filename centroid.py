@@ -95,28 +95,43 @@ b1 = b - (2 * localt)
 h1 = h - (2 * localt)
 c1 = h1 / (tan(radians(theta1)))
 
+
 # moment of inertia along the y_axis of a solid trapezoid:
 I_y_s = (h**3*(a**2+4*a*b+b**2))/(36*(a+b))
 #moment of inertia along the y axis of the cut-out trapezoid:
 I_y_c = (h1**3*(a1**2+4*a1*b1+b1**2))/(36*(a1+b1))
-# moment of inertia along the x_axis of a solid trapezoid:
+#x moment of inertia along the x_axis of a solid trapezoid:
 corr_I_x_s = (h*(4*a*b*c**2+3*a**2*b*c-3*a*b**2*c+a**4+b**4+2*a**3*b+a**2*c**2+a**3*c+2*a*b**3-c*b**3+b**2*c**2))/(36*(a+b))
-# Moment of inertia of the cut-out trapezoid:
+#x Moment of inertia of the cut-out trapezoid:
 corr_I_x_c = (h1*(4*a1*b1*c1**2+3*a1**2*b1*c1-3*a1*b1**2*c1+a1**4+b1**4+2*a1**3*b1+a1**2*c1**2+a1**3*c1+2*a1*b1**3-c1*b1**3+b1**2*c1**2))/(36*(a1+b1))
 
+L = 0.2
 t = 0.005
 A = t * (2 * L - t)
 x_bar = (t*L*L/2+t*(L-t)*t/2)/(t*L+t*(L-t))
 y_bar = (t*L*t/2+t*(L-t)*((L-t)/2+t))/(t*L+t*(L-t))
 
 
+#x-positions of stringers measured from the LE:
+I_y_str = np.zeros(100)
+for i in range(100):
+    x_str = np.linspace(0,h[i], int( n[i]))
+
+    #from centroid:
+    x_c_str = x_str - x_c[i]
+    #Steiner term contribution for Iy:
+    for j in range(len(x_c_str)):
+        I_y_str[i] += A*x_c_str[j]**2
+
+
+
 
 # moment of inertia increase due to stingers can be calculated by adding the steiner terms of the individual stringers
 I_s = n * A * y_c ** 2 + n * A * (a - y_c) ** 2
 I_s_y = n * A * x_c **2 + n * A * (h - x_c)**2
-I_y = I_y_s - I_y_c
+I_y = I_y_s - I_y_c + I_y_str
 
-I_xx_s= n* (L*(t**3)/12+ t*L*(y_bar-t/2)**2 + t*((L-t)**3)/12 + t*(L-t)*(y_bar-(t+(L-t)/2))**2)
+I_xx_s= (L*(t**3)/12+ t*L*(y_bar-t/2)**2 + t*((L-t)**3)/12 + t*(L-t)*(y_bar-(t+(L-t)/2))**2)
 
 corr_I_x = corr_I_x_s - corr_I_x_c + I_s
 
