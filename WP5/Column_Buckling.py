@@ -1,6 +1,6 @@
 import numpy as np
 from deflecftion import M_x, M_2, M_minus_1, M_z_1, M_z_25, M_z_min
-from centroid import I_y, corr_I_x, chord, option
+from centroid import I_y, corr_I_x, chord, option, y
 from math import tan, pi, radians, sin, cos
 from aerodynamicLoads import locations0
 import matplotlib.pyplot as plt
@@ -26,12 +26,14 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,0.3,0.6, 0.9, 1.2, 1.5, 1.8, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16, 16.5, 17, 17.5, 18, halfspan]
+    points= [0,0.5,1,  1.5, 1.8, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16, 16.5, 17, 17.5, 18, halfspan]
 elif option == 2:
-    points= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, halfspan]
+    points= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, halfspan]
 elif option == 3:
-    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, halfspan]
+    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,halfspan]
     #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
+
+
 
 #determining the centroid of the stringer:
 A= (t*width+t*(width-t))*10**(-6)     #[m^2]
@@ -144,10 +146,13 @@ def buck_str(spacing):
     buck_str= buck_str[1:]
 
     return buck_str, too_big, location_tb
+
+
 buck_stress1, too_big1, location_tb1 = buck_str(points)
+g = sp.interpolate.interp1d(points, buck_stress1, kind="previous", fill_value="extrapolate")
+buck_stress = g(y)
 #print(too_big, 'are too large')
 #print('at', location_tb)
-
 
 
 

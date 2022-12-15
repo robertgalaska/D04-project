@@ -4,7 +4,7 @@ import numpy as np
 from scipy import pi
 from deflecftion import M_x
 import matplotlib.pyplot as plt
-
+from Column_Buckling import points
 
 y  = np.linspace(0.01, 18.37, 100)
 l = 18.37
@@ -17,7 +17,7 @@ stressfrontspar = c * pi ** 2 * e * Ix_frontspar/ (l ** 2  *  areafrontspar)
 stressrearspar = c * pi ** 2 * e * Ix_rearspar/ (l ** 2  * arearearspar )
 stressstringer = c * pi ** 2 * e * (I_xx_s)/ (l ** 2  * areastringer )
 
-stress_max = 68900000 # in [Pa]
+stress_max = 276000000 # in [Pa]
 mos_rearspar = stress_max / stressrearspar
 mos_frontspar = stress_max / stressfrontspar
 mos_stringer = stress_max / stressstringer
