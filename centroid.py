@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import scipy as sp
 from scipy import interpolate, integrate
 
+
+
 # from constants import rootchord, tipchord, labda, halfspan
 # function to calculate the location of the centroid of the wingbox
 
@@ -104,6 +106,8 @@ corr_I_x_c = (h1*(4*a1*b1*c1**2+3*a1**2*b1*c1-3*a1*b1**2*c1+a1**4+b1**4+2*a1**3*
 
 t = 0.005
 A = t * (2 * L - t)
+x_bar = (t*L*L/2+t*(L-t)*t/2)/(t*L+t*(L-t))
+y_bar = (t*L*t/2+t*(L-t)*((L-t)/2+t))/(t*L+t*(L-t))
 
 
 
@@ -111,6 +115,8 @@ A = t * (2 * L - t)
 I_s = n * A * y_c ** 2 + n * A * (a - y_c) ** 2
 I_s_y = n * A * x_c **2 + n * A * (h - x_c)**2
 I_y = I_y_s - I_y_c
+
+I_xx_s= n* (L*(t**3)/12+ t*L*(y_bar-t/2)**2 + t*((L-t)**3)/12 + t*(L-t)*(y_bar-(t+(L-t)/2))**2)
 
 corr_I_x = corr_I_x_s - corr_I_x_c + I_s
 
