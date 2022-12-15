@@ -48,6 +48,7 @@ fig, axs = plt.subplots(3)
 
 axs[0].plot(y, mos_rearspar)
 axs[0].set_title('Margin of safety for the rearspan')
+
 axs[0].set_xlabel('Spanwise location [m]')
 axs[0].set_ylabel('Margin of safety [-]')
 
@@ -76,7 +77,5 @@ print('max stress stringer is ',max(stressstringer))
 print('Minimum factor of safety for front spar is', min(mos_frontspar))
 print('Minimum factor of safety for rear spar is', min(mos_rearspar))
 print('Minimum factor of safety for stringer is', min(mos_stringer))
-
-
 
 
