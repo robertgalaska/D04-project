@@ -4,6 +4,8 @@ from centroid import I_y, corr_I_x, chord, option, y
 from math import tan, pi, radians, sin, cos
 from aerodynamicLoads import locations0
 import matplotlib.pyplot as plt
+import scipy as sp
+from scipy import interpolate
 #from compressivestrength import stressrearspar, stressfrontspar, stressstringer
 
 
@@ -26,11 +28,11 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,0.5,1,  1.5, 1.8, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16, 16.5, 17, 17.5, 18, halfspan]
+    points= [0,0.5,1,  1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16, 16.5, 17, 17.5, 18]
 elif option == 2:
-    points= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, halfspan]
+    points= [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 elif option == 3:
-    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,halfspan]
+    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
 
 
@@ -138,19 +140,26 @@ def buck_str(spacing):
 
         for j in range(len(locations0)):
 
-            if locations0[j]<=spacing[i] and locations0[j]>spacing[i-1]:
+            if spacing[i-1] < locations0[j]<=spacing[i] :
                 if abs(float(minstress[j][0]))>=buck_str[i]:
                     too_big.append(minstress[j][0])
                     location_tb.append(locations0[j])
                     print(minstress[j][0],'at', locations0[j], 'is too large by a factor of', abs(minstress[j][0])/buck_str[i])
-    buck_str= buck_str[1:]
+
+
 
     return buck_str, too_big, location_tb
 
 
 buck_stress1, too_big1, location_tb1 = buck_str(points)
-g = sp.interpolate.interp1d(points, buck_stress1, kind="previous", fill_value="extrapolate")
-buck_stress = g(y)
+
+print(len(points))
+print(len(buck_stress1))
+g = sp.interpolate.interp1d(points, buck_stress1, kind="next", fill_value="extrapolate")
+buck_stress = g(locations0)
+
+plt.plot(locations0, buck_stress/abs(np.array(compression)))
+plt.show()
 #print(too_big, 'are too large')
 #print('at', location_tb)
 
