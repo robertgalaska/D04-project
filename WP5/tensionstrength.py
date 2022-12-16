@@ -18,6 +18,11 @@ def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
     crackstress = tension*2     #safety factor of 2
     #crack = ((K1c/(Y*crackstress))**2)/np.pi
 
+    marginlist = []
+    for i in range(len(tension)):
+        marginlist.append(max(tension[i], stressstringer))
+    marginlist = np.array(marginlist)
+
     fig, ax = plt.subplots()
     # make a plot
     # set x-axis label
