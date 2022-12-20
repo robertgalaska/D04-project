@@ -28,11 +28,11 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,1.4, 2.6, 3.8, 5, 6.5, 7.9, 9.5,  11.4, 12.8, 14.2, 15.5, 16.7,  17.7]
+    points= [0,1.4, 2.6, 3.8, 5, 6.5, 7.9, 9.5,  11.4, 12.8, 14.2, 15.5, 16.7,  17.7, halfspan]
 elif option == 2:
-    points= [0, 0.8, 1.6, 2.4, 3.3, 4.2, 5.2, 6.3, 7.4, 8.5, 9.8, 11.1, 12.1, 13 , 13.8 , 14.5, 15.2, 16.2, 17.1, 17.8]
+    points= [0, 0.8, 1.6, 2.4, 3.3, 4.2, 5.2, 6.3, 7.4, 8.5, 9.8, 11.1, 12.1, 13 , 13.8 , 14.5, 15.2, 16.2, 17.1, 17.8, halfspan]
 elif option == 3:
-    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, halfspan]
     #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
 
 
@@ -127,8 +127,6 @@ print(maxstress)
 print(minstress)
 print(min(tension))
 
-#print(buck_str(points1))
-
 #Buckling stress equation:
 def buck_str(spacing):
     too_big=[]
@@ -168,6 +166,7 @@ plt.axis([0, 18.8, 0, 5])
 plt.show()
 #print(too_big, 'are too large')
 #print('at', location_tb)
-print(margin[-1])
+print('margin is', margin)
+print(buck_stress, np.array(compression))
 
 
