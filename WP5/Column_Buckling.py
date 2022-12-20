@@ -30,7 +30,7 @@ theta1 = 88.06
 if option == 1:
     points= [0,1.4, 2.6, 3.8, 5, 6.5, 7.9, 9.5,  11.4, 12.8, 14.2, 15.5, 16.7,  17.7]
 elif option == 2:
-    points= [0, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    points= [0, 0.8, 1.6, 2.4, 3.3, 4.2, 5.2, 6.3, 7.4, 8.5, 9.8, 11.1, 12.1, 13 , 13.8 , 14.5, 15.2, 16.2, 17.1, 17.8]
 elif option == 3:
     points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
     #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
@@ -158,10 +158,12 @@ g = sp.interpolate.interp1d(points, buck_stress1, kind="next", fill_value="extra
 buck_stress = g(locations0)
 margin= buck_stress/abs(np.array(compression))
 
+
 plt.plot(locations0,margin)
+plt.grid(True)
 plt.title('Margin of safety for column buckling along the span')
 plt.xlabel('Spanwise location [m]')
-plt.ylabel('Margin of safety [Pa]')
+plt.ylabel('Margin of safety [-]')
 plt.axis([0, 18.8, 0, 5])
 plt.show()
 #print(too_big, 'are too large')
