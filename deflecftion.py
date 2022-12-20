@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 E= 68.9*10**9
 G=26*10**9
-from centroid import y, J, localchord, y_c, localt, area, Q, corr_I_x
+from centroid import y, J, localchord, y_c, localt, area, Q, corr_I_x, thickness, points_1, halfspan
 import scipy as sp
 from scipy import integrate
 
@@ -17,26 +17,36 @@ def T_integrand(T,G,J):
     return int
 
 from engine import engine_torque
-from aerodynamicLoads import T_aero_0, T_aero_10, aero_torque_CLd_1, aero_torque_CLd_25, aero_torque_CLd_min
+from aerodynamicLoads import T_aero_0, T_aero_10, aero_torque_CLd_1, aero_torque_CLd_25, aero_torque_CLd_min, locations0
 T = np.add (engine_torque,aero_torque_CLd_1)
 T_2 = np.add (engine_torque,aero_torque_CLd_25)
 T_minus_1 = np.add (engine_torque,aero_torque_CLd_min)
 
+points_1.append(halfspan)
 Theta = np.ones(100)
+tau_max= np.zeros(100)
 for i in range(0,100):
     T_int = T_integrand(T[:i],G,J[:i])
     Theta[i] = sp.integrate.trapezoid(T_int,y[:i])
+    for j in range(1, len(points_1)):
+        if locations0[i] <= points_1[j] and locations0[i] > points_1[j - 1]:
+            tau_max[i] = T[i]/ 2*area[i]*thickness[j-1]
 
 Theta_2 = np.ones(100)
 for i in range(0,100):
     T_int = T_integrand(T_2[:i],G,J[:i])
     Theta_2[i] = sp.integrate.trapezoid(T_int,y[:i])
+    for j in range(1, len(points_1)):
+        if locations0[i] <= points_1[j] and locations0[i] > points_1[j - 1]:
+            tau_max_2 = T_2[i]/ 2*area[i]*thickness[j-1]
 
 Theta_minus_1 = np.ones(100)
 for i in range(0,100):
     T_int = T_integrand(T_minus_1[:i],G,J[:i])
     Theta_minus_1[i] = sp.integrate.trapezoid(T_int,y[:i])
-
+    for j in range(1, len(points_1)):
+        if locations0[i] <= points_1[j] and locations0[i] > points_1[j - 1]:
+            tau_max_minus_1 = T_minus_1[i]/ 2*area[i]*thickness[j-1]
 
 
 print(Theta_2[-1])
