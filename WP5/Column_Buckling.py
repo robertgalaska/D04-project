@@ -28,11 +28,11 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,1.4, 2.6, 3.8, 5, 6.5, 7.9, 9.5,  11.4, 12.8, 14.2, 15.5, 16.7,  17.7, halfspan]
+    points= [0,1.2, 2.5, 3.7, 4.9, 6.4, 7.9, 9.5,  11.1, 12.5, 13.7, 14.8, 16.1, 17.1,17.9, halfspan]
 elif option == 2:
-    points= [0, 0.8, 1.6, 2.4, 3.3, 4.2, 5.2, 6.3, 7.4, 8.5, 9.8, 11.1, 12.1, 13 , 13.8 , 14.5, 15.2, 16.2, 17.1, 17.8, halfspan]
+    points= [0, 0.8, 1.6, 2.4, 3.3, 4.2, 5.2, 6.3, 7.4, 8.5, 9.8, 11.1, 12.1, 13 , 13.8 , 14.5, 15.3, 16.3, 17.2, 17.9, halfspan]
 elif option == 3:
-    points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, halfspan]
+    points = [0, 1.2, 2.5, 4, 5.5, 6.8,  8.3, 10.2,  11.9 , 13.3, 14.7, 16.1, 17.5 , halfspan]
     #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
 
 
@@ -127,6 +127,8 @@ print(maxstress)
 print(minstress)
 print(min(tension))
 
+#print(buck_str(points1))
+
 #Buckling stress equation:
 def buck_str(spacing):
     too_big=[]
@@ -162,7 +164,7 @@ plt.grid(True)
 plt.title('Margin of safety for column buckling along the span')
 plt.xlabel('Spanwise location [m]')
 plt.ylabel('Margin of safety [-]')
-plt.axis([0, 18.8, 0, 5])
+plt.axis([0, 18.8, 0, 3])
 plt.show()
 #print(too_big, 'are too large')
 #print('at', location_tb)
