@@ -28,7 +28,7 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,0.5,1,  1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,16, 16.5, 17, 17.5, 18]
+    points= [0,1.4, 2.6, 3.8, 5, 6.5, 7.9, 9.5,  11.4, 12.8, 14.2, 15.5, 16.7,  17.7]
 elif option == 2:
     points= [0, 0.5, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 elif option == 3:
@@ -153,12 +153,12 @@ def buck_str(spacing):
 
 buck_stress1, too_big1, location_tb1 = buck_str(points)
 
-print(len(points))
-print(len(buck_stress1))
+
 g = sp.interpolate.interp1d(points, buck_stress1, kind="next", fill_value="extrapolate")
 buck_stress = g(locations0)
+margin= buck_stress/abs(np.array(compression))
 
-plt.plot(locations0, buck_stress/abs(np.array(compression)))
+plt.plot(locations0,margin)
 plt.title('Margin of safety for column buckling along the span')
 plt.xlabel('Spanwise location [m]')
 plt.ylabel('Margin of safety [Pa]')
@@ -166,6 +166,6 @@ plt.axis([0, 18.8, 0, 5])
 plt.show()
 #print(too_big, 'are too large')
 #print('at', location_tb)
-
+print(margin[-1])
 
 
