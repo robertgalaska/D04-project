@@ -60,14 +60,3 @@ axs[2].set_ylabel('Margin of safety [-]')
 fig.tight_layout()
 plt.show()
 
-print('min stress front spar is ', min(stressfrontspar))
-print('min stress rear spar is ',min(stressrearspar))
-print('min stress stringer is ',min(stressstringer))
-print('max stress front spar is ', max(stressfrontspar))
-print('max stress rear spar is ',max(stressrearspar))
-print('max stress stringer is ',max(stressstringer))
-print('Minimum factor of safety for front spar is', min(mos_frontspar))
-print('Minimum factor of safety for rear spar is', min(mos_rearspar))
-print('Minimum factor of safety for stringer is', min(mos_stringer))
-
-

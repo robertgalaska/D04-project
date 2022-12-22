@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from aerodynamicLoads import locations0
 
 def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
-
     # constants for formula of crack length
     K1c = 29*10**6
     Y = 1.1
@@ -18,10 +17,7 @@ def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
         marginlist.append(max(tension[i], stressstringer[i]))
     marginlist = np.array(marginlist)
     crackstress = marginlist * 2  # safety factor of 2
-
-    # critical crack, already calculated in latex
-    critical_crack = np.array([0.034]*100)
-    print(critical_crack)
+    critical_crack = np.array([0.034]*100)  #list with critical crack
 
     # make plot for only max stresses and crack length
     fig, ax = plt.subplots(1,2, constrained_layout = True)
@@ -51,9 +47,7 @@ def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
     axs[index].plot(locations0, stressrearspar, label = "RS-T", color="mediumorchid")
     axs[index].legend(loc="upper left")
     axs[index].grid(True)
-
     plt.show()
 
     return
-
 tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer)

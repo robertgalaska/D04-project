@@ -44,14 +44,12 @@ print('I_xx is', I_xx, 'm^4')
 
 #function that calculated the normal stress in the cross section on the most critical points.
 def normalstress(ixx, iyy, moments):
-
     #lists to append stresses
     stress_minwing = []
     stress_maxwing = []
 
     # looping over the 100 locations over the wing
     for i in range(100):
-
         y_wing = locations0[i]
         #finding the chord at the y coordinate
         localchord = chord(rootchord, labda, halfspan, y_wing)
@@ -69,8 +67,8 @@ def normalstress(ixx, iyy, moments):
         #finding the critical points
         x_left = -x_c
         x_right = h-x_c
-        z_left = b/2        #note that this value is positive or negative because of a symmetrical plane
-        z_right = a/2       #note that this value is positive or negative because of a symmetrical plane
+        z_left = b/2  #note that this value is positive or negative because of a symmetrical plane
+        z_right = a/2 #note that this value is positive or negative because of a symmetrical plane
 
         # List with the x and z points at all four critical points and other lists
         crit_points = [[x_left, z_left],[x_right, z_right], [x_right, -z_right], [x_left, -z_left]]
@@ -84,16 +82,16 @@ def normalstress(ixx, iyy, moments):
             z = crit_points[j][1]
 
             #main stress formula
-            stress = (moments[0][i]*z)/corr_I_x[i] + (moments[1][j]*x)/I_y[i]       #moment is numpy array, mistake
+            stress = (moments[0][i]*z)/corr_I_x[i] + (moments[1][j]*x)/I_y[i]
 
-            info_stress = [stress, x, z]    #variable with the stress, x coordinate and z coordinate
+            info_stress = [stress, x, z]
             stresses.append(stress)
             local_stress.append(info_stress)
 
-        high = stresses.index(max(stresses)) # get the index of the highest stress of the four points
-        low = stresses.index(min(stresses)) # get the index of the lowest stress of the four points
-        stress_maxwing.append(local_stress[high])   # appending that high stress to the maximum stress list per y coordinate
-        stress_minwing.append(local_stress[low])    # appending that high stress to the maximum stress list per y coordinate
+        high = stresses.index(max(stresses)) #index highest stress
+        low = stresses.index(min(stresses)) #index lowest stress
+        stress_maxwing.append(local_stress[high])   # append to list with max stress
+        stress_minwing.append(local_stress[low])    # append to list with min stress
 
     # Plot the moments
     fig, axs = plt.subplots(2)
@@ -109,7 +107,6 @@ def normalstress(ixx, iyy, moments):
     plt.show()
 
     return stress_minwing, stress_maxwing
-
 minstress, maxstress = normalstress(corr_I_x, I_y, moment_25)
 
 # make new list with the tensions and compressions out of the stress lists
@@ -137,10 +134,8 @@ def buck_str(spacing):
                 if abs(float(minstress[j][0]))>=buck_str[i]:
                     too_big.append(minstress[j][0])
                     location_tb.append(locations0[j])
-                    print(minstress[j][0],'at', locations0[j], 'is too large by a factor of', abs(minstress[j][0])/buck_str[i])
 
     return buck_str, too_big, location_tb
-
 buck_stress1, too_big1, location_tb1 = buck_str(points)
 
 # get the buckling stress to obtain the margin of safety
