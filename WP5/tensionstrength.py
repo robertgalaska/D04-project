@@ -45,12 +45,10 @@ def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
     index = int(option)-1
     axs[index].set_xlabel("Location along halfspan[m]")
     axs[index].set_ylabel("Stress [Pa]")
-    #axs[index].plot(locations0, yieldstress, '--', label="Cross-sectional tension", color="orange")
     axs[index].plot(locations0, tension, label="CS-T", color="g")
     axs[index].plot(locations0, stressstringer, label="S-T", color="r")
     axs[index].plot(locations0, stressfrontspar, label = "FS-T", color="c")
     axs[index].plot(locations0, stressrearspar, label = "RS-T", color="mediumorchid")
-    #axs[index].plot(locations0, crackstress, '--', label="Margin stress", color="black")
     axs[index].legend(loc="upper left")
     axs[index].grid(True)
 
