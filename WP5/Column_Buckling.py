@@ -28,11 +28,11 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,0.5, 1.1, 1.8, 2.4, 3., 3.7, 4.3, 5., 5.9, 6.7, 7.6, 8.6, 9.8,  11., 12.5, 13.7, 14.8, 15.9, 16.9, 17.9, halfspan]
+    points= [0,.6, 1.3 ,1.9,  2.6, 3.2,4, 4.8, 5.7, 6.5, 7.5, 8.4, 9.3, 10.5 ,11.7, 13, 14.1, 15.1, 16.2, 17.2, 17.9, halfspan]
 elif option == 2:
-    points= [0, 0.7, 1.4, 2.1 , 2.7, 3.5,4.3, 5, 5.9, 6.8, 7.7, 8.8, 9.8,10.9,  11.7, 12.4 , 13, 13.6, 14.2, 14.7, 15.4, 16.1, 16.8, 17.4, 17.9, 18.2 ,halfspan]
+    points= [0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8, 2.2, 2.5, 2.9, 3.2, 3.6, 4, 4.4, 4.8,  5.2, 5.6, 6, 6.5, 7, 7.5, 8, 8.6, 9.1, 9.7, 10.4, 11, 11.8, 12.6, 13.2, 13.5, 14, 14.4, 14.8, 15.4, 16.1, 16.8, 17.4, 17.9, 18.2 ,halfspan]
 elif option == 3:
-    points = [0, 0.5, 0.9, 1.5, 2.1, 2.6 ,3, 3.7, 4.2, 4.7, 5.4, 6, 6.8, 7.7, 8.4, 9.1, 9.9, 10.9, 12. , 13.2, 14.3, 15.4,16.4, 17.2, 18 , halfspan]
+    points = [0, 0.5, 0.9, 1.5, 2.1, 2.6, 3, 3.7, 4.2, 4.7, 5.4, 6, 6.8, 7.7, 8.4, 9.1, 9.9, 10.9, 12. , 13.2, 14.3, 15.4,16.4, 17.2, 18 , halfspan]
     #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
 
 
@@ -121,8 +121,7 @@ for i in range(len(maxstress)):
     tension.append(maxstress[i][0])
     compression.append(minstress[i][0])
 
-tension = np.array(tension)
-compression = np.array(compression)
+
 
 print(maxstress)
 print(minstress)
@@ -154,8 +153,7 @@ def buck_str(spacing):
 
 buck_stress1, too_big1, location_tb1 = buck_str(points)
 
-print(len(points))
-print(len(buck_stress1))
+
 g = sp.interpolate.interp1d(points, buck_stress1, kind="next", fill_value="extrapolate")
 buck_stress = g(locations0)
 margin= buck_stress/abs(np.array(compression))
