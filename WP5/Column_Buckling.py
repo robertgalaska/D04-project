@@ -108,7 +108,7 @@ def normalstress(ixx, iyy, moments):
 
     return stress_minwing, stress_maxwing
 
-minstress, maxstress = normalstress(corr_I_x, I_y, moment_1)
+minstress, maxstress = normalstress(corr_I_x, I_y, moment_25)
 
 
 tension = []
