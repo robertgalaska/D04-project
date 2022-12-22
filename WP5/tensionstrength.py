@@ -5,14 +5,12 @@ from compressivestrength import stressrearspar, stressfrontspar, stressstringer
 import matplotlib.pyplot as plt
 from aerodynamicLoads import locations0
 
-yieldstress = np.array([276000000]*100)
-
 def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
 
     # constants for formula of crack length
     K1c = 29*10**6
     Y = 1.1
-    stress = 276*10**6
+    yieldstress = np.array([276000000] * 100)
 
     # find the margin stress of 2 times the max stress
     marginlist = []
@@ -27,21 +25,15 @@ def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
 
     # make plot for only max stresses and crack length
     fig, ax = plt.subplots(1,2, constrained_layout = True)
-    # set x-axis label
     ax[0].set_xlabel("Location along halfspan[m]")
-    # set y-axis label
     ax[0].set_ylabel("Stress [Pa]")
-
     ax[0].plot(locations0, yieldstress, '--', label = "Yield stress", color="orange")
     ax[0].plot(locations0, tension, label = "Cross-sectional tension", color="g")
     ax[0].plot(locations0, stressstringer, label="Stringer tension", color="r")
     ax[0].plot(locations0, crackstress, '--', label="Margin stress", color="black")
     ax[0].legend(loc="upper left")
     ax[0].grid(True)
-
-    # set x-axis label
     ax[1].set_xlabel("Location along halfspan[m]")
-    # set y-axis label
     ax[1].set_ylabel("Margin of safety [-]")
     ax[1].plot(locations0, marginofsafety, color="black")
     ax[1].grid(True)
@@ -51,11 +43,8 @@ def tensiongraph(tension, stressrearspar, stressfrontspar, stressstringer):
     figs, axs = plt.subplots(1,3, constrained_layout = True)
     print(option)
     index = int(option)-1
-    # set x-axis label
     axs[index].set_xlabel("Location along halfspan[m]")
-    # set y-axis label
     axs[index].set_ylabel("Stress [Pa]")
-
     #axs[index].plot(locations0, yieldstress, '--', label="Cross-sectional tension", color="orange")
     axs[index].plot(locations0, tension, label="CS-T", color="g")
     axs[index].plot(locations0, stressstringer, label="S-T", color="r")

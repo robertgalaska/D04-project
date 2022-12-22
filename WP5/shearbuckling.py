@@ -22,9 +22,7 @@ plt.ylabel("Shear stress magnitude in spar [MPa]")
 plt.show()
 
 k = 9.5     # constant for clamped thin plate, high aspact ratio from shear buckling formula
-
 criticalshear =(pi**2 * k * E * localt**2 / (12*(1-v**2)*hf[0]**2))
-
 ratio = criticalshear/abs(sheartot)
 
 # Plot critical shear
@@ -37,7 +35,6 @@ plt.show()
 plt.plot(y, ratio)
 plt.xlabel("Span position [m]")
 plt.yticks([1 , 100 ,200, 300, 400, 500, 600])
-#plt.yticks([1 , 250 ,500, 750,1000, 1250, 1500, 1750, 2000])
 plt.axis([0, 19, 1,600])
 plt.ylabel(" Critical shear stress/ Total shear [-]")
 plt.show()

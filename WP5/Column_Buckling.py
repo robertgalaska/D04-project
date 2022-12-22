@@ -72,10 +72,8 @@ def normalstress(ixx, iyy, moments):
         z_left = b/2        #note that this value is positive or negative because of a symmetrical plane
         z_right = a/2       #note that this value is positive or negative because of a symmetrical plane
 
-        # List with the x and z points at all four critical points
+        # List with the x and z points at all four critical points and other lists
         crit_points = [[x_left, z_left],[x_right, z_right], [x_right, -z_right], [x_left, -z_left]]
-
-        # more lists to append results
         local_stress = []
         stresses = []
         tension = []
@@ -92,21 +90,17 @@ def normalstress(ixx, iyy, moments):
             stresses.append(stress)
             local_stress.append(info_stress)
 
-
         high = stresses.index(max(stresses)) # get the index of the highest stress of the four points
         low = stresses.index(min(stresses)) # get the index of the lowest stress of the four points
-
         stress_maxwing.append(local_stress[high])   # appending that high stress to the maximum stress list per y coordinate
         stress_minwing.append(local_stress[low])    # appending that high stress to the maximum stress list per y coordinate
 
     # Plot the moments
     fig, axs = plt.subplots(2)
-    # first plot: torque
     axs[0].plot(locations0, moments[0])
     axs[0].set_title('Moment X [Nm]')
     axs[0].set_xlabel('Spanwise location [m]')
     axs[0].set_ylabel('Moment [kNm]')
-    # second plot: bending moment
     axs[1].plot(locations0, moments[1], 'tab:orange')
     axs[1].set_title('Moment Z [Nm]')
     axs[1].set_xlabel('Spanwise location [m]')
@@ -162,8 +156,6 @@ plt.xlabel('Spanwise location [m]')
 plt.ylabel('Margin of safety [-]')
 plt.axis([0, 18.8, 0, 4])
 plt.show()
-
-print('margin is', margin)
 
 
 

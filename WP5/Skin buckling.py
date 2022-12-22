@@ -40,7 +40,6 @@ print('The minimum critical stress is :', min(sigma_critical))
 area = n * A + localt * h
 margin_of_safety = sigma_critical/((abs(max_stress)/(area))*(h/(n+1)*localt))
 margin_of_safety[margin_of_safety>5000] = 5000
-
 print('the minimum margin of safety is', min(margin_of_safety),'and is located at', (margin_of_safety.argmin())*halfspan*1/100)
 
 #plotting stress and margin of safety
