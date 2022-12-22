@@ -153,7 +153,8 @@ def buck_str(spacing):
 
 buck_stress1, too_big1, location_tb1 = buck_str(points)
 
-
+print(len(points))
+print(len(buck_stress1))
 g = sp.interpolate.interp1d(points, buck_stress1, kind="next", fill_value="extrapolate")
 buck_stress = g(locations0)
 margin= buck_stress/abs(np.array(compression))
