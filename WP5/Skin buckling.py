@@ -7,44 +7,43 @@ from scipy import interpolate
 import numpy as np
 from Column_Buckling import maxstress, points
 from aerodynamicLoads import locations0
+
+# getting max stress from file Column buckling
 a = np.array(maxstress)
 b = a[:,:1]
 max_stress = np.ones(100)
 for i in range(100):
     max_stress[i] = (b[i])
 print(max_stress)
+
+#Length between the ribs calculations
 points_r = points
 for i in range(1, len(points_r)):
     L = points_r[i] - points_r[i - 1]
 
-#points = [0, 3, 6, 9, 12, 15]
-#nofribs = [3, 2, 1, 1, 1, 1]
-# nofstringers = [75, 62, 50, 40, 30, 25, 20]
-#f = sp.interpolate.interp1d(points, nofribs, kind="previous", fill_value="extrapolate")
-#ribs = f(y)
+# Ratios from skin panel
 a = L
 a_b = a/(h/(n+1))
 
+# doing an approximation of curve
 points = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 1, 2]
 k_c = [18, 14, 12, 10, 8, 6, 4.5, 4]
 g = sp.interpolate.interp1d(points, k_c, kind="previous", fill_value="extrapolate")
 local_k_c = g(a_b)
 
-#k_c = 4
-v = 0.33
+v = 0.33    #poisson's ratio
 sigma_critical = (pi **2 * local_k_c * E)/ (12 * (1-v**2)) * (localt/(h))**2
 print('The maximum critical stress is :', max(sigma_critical))
 print('The minimum critical stress is :', min(sigma_critical))
-#print(sigma_critical)
 
+#calculations for margin of safety of skin buckling
 area = n * A + localt * h
 margin_of_safety = sigma_critical/((abs(max_stress)/(area))*(h/(n+1)*localt))
-#margin_of_safety = sigma_critical/(abs(max_stress))
 margin_of_safety[margin_of_safety>5000] = 5000
-#print(margin_of_safety)
-#print(normal)
-#print(sigma_critical)
+
 print('the minimum margin of safety is', min(margin_of_safety),'and is located at', (margin_of_safety.argmin())*halfspan*1/100)
+
+#plotting stress and margin of safety
 fig, axs = plt.subplots(2)
 axs[0].plot(locations0, sigma_critical)
 axs[0].set_title('critical stress for skin buckling')
@@ -68,4 +67,3 @@ plt.title('Normal stress along the span')
 plt.xlabel('Spanwise location [m]')
 plt.ylabel('Applied stress [Pa]')
 plt.show()
-print(max(max_stress))

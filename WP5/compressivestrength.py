@@ -5,25 +5,27 @@ from scipy import pi
 from deflecftion import M_x
 import matplotlib.pyplot as plt
 
-
-
-l = 18.37
-areafrontspar = b * localt
-arearearspar = a * localt
+# Defining basic constants
+l = 18.37       # half span length
+areafrontspar = b * localt      #b is the length of the front spar
+arearearspar = a * localt       #a is the length of the back spar
 areastringer = 0.02 * 0.005 + 0.015 * 0.005
-c = 0.25
-e = 68.9 * 10 ** 9
+c = 0.25        # given value determined by compressive strength formula
+e = 68.9 * 10 ** 9  #Young's Modulus of aluminium
+
+#Calculating the stresses
 stressfrontspar = c * pi ** 2 * e * Ix_frontspar/ (l ** 2  *  areafrontspar)
 stressrearspar = c * pi ** 2 * e * Ix_rearspar/ (l ** 2  * arearearspar )
 stressstringer = c * pi ** 2 * e * (I_xx_s)/ (l ** 2  * areastringer )
-print(areafrontspar[:5])
 stress_max = 276000000 # in [Pa]
+
+#Margin of safety calcuations
 mos_rearspar = stress_max / stressrearspar
 mos_frontspar = stress_max / stressfrontspar
 mos_stringer = stress_max / stressstringer
 
+# plotting the graphs of the stresses
 fig, axs = plt.subplots(3)
-
 axs[0].plot(y, stressrearspar)
 axs[0].set_title('Compressive stress in the rearspar')
 axs[0].set_xlabel('Spanwise location [m]')
