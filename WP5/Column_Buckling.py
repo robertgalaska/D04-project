@@ -28,9 +28,9 @@ theta1 = 88.06
 
 #Locations of ribs:
 if option == 1:
-    points= [0,1.2, 2.5, 3.7, 4.9, 6.4, 7.9, 9.5,  11.1, 12.5, 13.7, 14.8, 16.1, 17.1,17.9, halfspan]
+    points= [0,.6, 1.3 ,1.9,  2.6, 3.2,4, 4.8, 5.7, 6.5, 7.5, 8.4, 9.3, 10.5 ,11.7, 13, 14.1, 15.1, 16.2, 17.2, 17.9, halfspan]
 elif option == 2:
-    points= [0, 0.7, 1.4, 2.1 , 2.7, 3.5,4.3, 5, 5.9, 6.8, 7.7, 8.8, 9.8,10.9,  11.7, 12.4 , 13, 13.6, 14.2, 14.7, 15.4, 16.1, 16.8, 17.4, 17.9, 18.2 ,halfspan]
+    points= [0, 0.31,0.68, 1, 1.3 ,1.6 ,1.9,2.2,2.6, 2.9, 3.2, 3.5,3.8, 4.2, 4.6, 5, 5.5, 5.9, 6.4, 6.8,7.3, 7.8, 8.3,8.9,9.6, 10.3,11,12.1 , 12.8, 13.5, 14.1, 14.7, 15.4, 16.1, 16.8, 17.4, 17.9, 18.2 ,halfspan]
 elif option == 3:
     points = [0, 1, 2.1, 3.3, 4.4, 5.5, 6.8, 7.9, 9.3, 10.6, 12. , 13.2, 14.3, 15.4,16.4, 17.2, 18 , halfspan]
     #points= [0, 2, 4, 6, 9, 12, 16, halfspan]
@@ -112,7 +112,7 @@ def normalstress(ixx, iyy, moments):
 
     return stress_minwing, stress_maxwing
 
-minstress, maxstress = normalstress(corr_I_x, I_y, moment_1)
+minstress, maxstress = normalstress(corr_I_x, I_y, moment_25)
 
 
 tension = []
