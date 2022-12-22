@@ -1,23 +1,23 @@
 # Calculating the wing skin
-from centroid import corr_I_x_s, corr_I_x_c, area, corr_I_x, Ix_frontspar, Ix_rearspar, localchord, localt, a, b, I_s, I_xx_s
+from centroid import  Ix_frontspar, Ix_rearspar,localt, a, b, I_xx_s,y
 import numpy as np
 from scipy import pi
 from deflecftion import M_x
 import matplotlib.pyplot as plt
 
 
-y  = np.linspace(0.01, 18.37, 100)
+
 l = 18.37
-areafrontspar = a * localt
-arearearspar = b * localt
+areafrontspar = b * localt
+arearearspar = a * localt
 areastringer = 0.02 * 0.005 + 0.015 * 0.005
 c = 0.25
 e = 68.9 * 10 ** 9
 stressfrontspar = c * pi ** 2 * e * Ix_frontspar/ (l ** 2  *  areafrontspar)
 stressrearspar = c * pi ** 2 * e * Ix_rearspar/ (l ** 2  * arearearspar )
 stressstringer = c * pi ** 2 * e * (I_xx_s)/ (l ** 2  * areastringer )
-
-stress_max = 68900000 # in [Pa]
+print(areafrontspar[:5])
+stress_max = 276000000 # in [Pa]
 mos_rearspar = stress_max / stressrearspar
 mos_frontspar = stress_max / stressfrontspar
 mos_stringer = stress_max / stressstringer
@@ -48,6 +48,7 @@ fig, axs = plt.subplots(3)
 
 axs[0].plot(y, mos_rearspar)
 axs[0].set_title('Margin of safety for the rearspan')
+
 axs[0].set_xlabel('Spanwise location [m]')
 axs[0].set_ylabel('Margin of safety [-]')
 
@@ -76,7 +77,5 @@ print('max stress stringer is ',max(stressstringer))
 print('Minimum factor of safety for front spar is', min(mos_frontspar))
 print('Minimum factor of safety for rear spar is', min(mos_rearspar))
 print('Minimum factor of safety for stringer is', min(mos_stringer))
-
-
 
 
